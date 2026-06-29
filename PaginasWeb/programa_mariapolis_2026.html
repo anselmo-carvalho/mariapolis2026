@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programa Mariápolis Brasília 2026 - Versão Atualizada</title>
+    <!-- 
+        CSS EMBUTIDO - VERSÃO 2
+        - Cores diferenciadas por dia
+        - Sem coluna de observações
+        - Cabeçalhos repetidos por dia
+        - Layout totalmente responsivo
+    -->
+    <style>
+        :root {
+            --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --border-color: #333;
+            
+            /* Cores Sábado (Rosa/Bege) */
+            --sabado-header: #f2d7d5;
+            --sabado-highlight: #f9ebea;
+            
+            /* Cores Domingo (Azul) */
+            --domingo-header: #d4e6f1;
+            --domingo-highlight: #ebf5fb;
+            
+            /* Cores Segunda (Verde) */
+            --segunda-header: #d5f5e3;
+            --segunda-highlight: #e9f7ef;
+
+            /* Cor Comum para Refeições/Intervalos (pode ser personalizada por dia se preferir) */
+            --meal-bg: #fcf3cf; /* Amarelo suave para destacar refeições/intervalos */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: #eceff1;
+            padding: 20px;
+            color: #212121;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .doc-header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .doc-header h1 { font-size: 24px; margin-bottom: 5px; color: #1a237e; }
+        .doc-header h2 { font-size: 18px; font-weight: normal; color: #5c6bc0; }
+
+        /* --- Tabelas por Dia --- */
+        .day-section {
+            margin-bottom: 40px;
+        }
+
+        .day-title {
+            font-size: 20px;
+            font-weight: bold;
+            padding: 10px;
+            text-align: center;
+            border: 2px solid var(--border-color);
+            border-bottom: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 2px solid var(--border-color);
+            table-layout: fixed;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        thead th {
+            font-weight: bold;
+            text-align: center;
+            background-color: #f5f5f5;
+        }
+
+        .time-col { width: 30%; text-align: center; font-weight: bold; }
+        .prog-col { width: 70%; }
+
+        /* Estilização por Dia */
+        .section-sabado .day-title { background-color: var(--sabado-header); }
+        .section-sabado thead th { background-color: var(--sabado-header); }
+        
+        .section-domingo .day-title { background-color: var(--domingo-header); }
+        .section-domingo thead th { background-color: var(--domingo-header); }
+        
+        .section-segunda .day-title { background-color: var(--segunda-header); }
+        .section-segunda thead th { background-color: var(--segunda-header); }
+
+        /* Destaques (Refeições e Intervalos) */
+        .highlight {
+            background-color: var(--meal-bg) !important;
+            font-style: italic;
+        }
+
+        /* --- Responsividade --- */
+        @media screen and (max-width: 600px) {
+            body { padding: 10px; }
+            .container { padding: 15px; border-radius: 0; }
+            .doc-header h1 { font-size: 20px; }
+            .doc-header h2 { font-size: 16px; }
+            
+            th, td { padding: 8px 10px; font-size: 14px; }
+            .time-col { width: 35%; }
+            .prog-col { width: 65%; }
+        }
+
+        /* Estilo para Impressão */
+        @media print {
+            body { background: white; padding: 0; }
+            .container { box-shadow: none; width: 100%; max-width: 100%; padding: 0; }
+            .day-section { page-break-inside: avoid; }
+        }
+    </style>
+<script type="text/javascript" nonce="e572ac1defe24270976298c5833" src="//local.adguard.org?ts=1782735911543&amp;type=content-script&amp;dmn=private-us-east-1.manuscdn.com&amp;url=https%3A%2F%2Fprivate-us-east-1.manuscdn.com%2FsessionFile%2Fw0ZuevLIkE57evfYEqIxPt%2Fsandbox%2FevDyUX9qfjoDetzfGZXWAQ_1782741227182_na1fn_L2hvbWUvdWJ1bnR1L3Byb2dyYW1hX21hcmlhcG9saXNfMjAyNl92Mg.html%3FPolicy%3DeyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvdzBadWV2TElrRTU3ZXZmWUVxSXhQdC9zYW5kYm94L2V2RHlVWDlxZmpvRGV0emZHWlhXQVFfMTc4Mjc0MTIyNzE4Ml9uYTFmbl9MMmh2YldVdmRXSjFiblIxTDNCeWIyZHlZVzFoWDIxaGNtbGhjRzlzYVhOZk1qQXlObDkyTWcuaHRtbCIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5ODc2MTYwMH19fV19%26Key-Pair-Id%3DK2HSFNDJXOU9YS%26Signature%3DisVleaBoi9tSPKE~nBMRFYf9ufibF3ZuIchbcq3mymoid~OVlM6IclZ8q~7A2GTXMrt9SAHq1Le3U9Y3wudicBnt9NOS4JEuZ4JNfJJ2eOaM0E8Eb5zqJY09z-jbjKMaC8~Gftx3t-5CZiTT2aEjxzoAbv3SV38C9oYfK8yOlYLWh6CZ43w-iFpZjnDvT0a3s3MJBcl7VFoAk4reejEF~AGDopk1-26~wPmsce0NMu4arQDYdz29F8iS0GJJrqJAbG4nVfrYB6v1wuzb1D~JT9ZdZ1jZHRQ7BNZ847KgH4CsLqlKe--WBRa229fPEw9CjniTWA~SbKnDulptjRiXAQ__&amp;app=ai.perplexity.comet&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1&amp;stealth=1&amp;st-push&amp;st-loc&amp;st-java&amp;st-dnt"></script><script type="text/javascript" nonce="e572ac1defe24270976298c5833" src="//local.adguard.org?ts=1782735911543&amp;name=AdGuard%20Popup%20Blocker&amp;name=AdGuard%20Extra&amp;name=AdGuard%20Assistant&amp;type=user-script"></script></head>
+<body>
+
+<div class="container">
+    <div class="doc-header">
+        <h1>Mariápolis Brasília – 2026</h1>
+        <h2>Diálogo: Caminho para Unidade e Paz</h2>
+    </div>
+
+    <!-- SÁBADO -->
+    <div class="day-section section-sabado">
+        <div class="day-title">Sábado</div>
+        <table>
+            <thead>
+                <tr>
+                    <th class="time-col">Hora</th>
+                    <th class="prog-col">Programa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>9h30</td><td>Chegada</td></tr>
+                <tr><td>10h</td><td>Canções sala (acolhida)</td></tr>
+                <tr><td>10h15</td><td>Abertura: Manual do encontro</td></tr>
+                <tr><td>10h30</td><td>Dinâmica quebra gelo (divisão dos grupos)</td></tr>
+                <tr><td>10h45</td><td>História do Ideal</td></tr>
+                <tr><td>11h30</td><td>Missa</td></tr>
+                <tr class="highlight"><td>12h30</td><td>Almoço</td></tr>
+                <tr><td>15h</td><td>Canções sala</td></tr>
+                <tr><td>15h15</td><td>Dinâmica</td></tr>
+                <tr><td>15h30</td><td>Tema: Proximidade (nossa missão)</td></tr>
+                <tr class="highlight"><td>16h</td><td>Intervalo</td></tr>
+                <tr><td>16h45</td><td>Canções</td></tr>
+                <tr><td>17h</td><td>Experiências</td></tr>
+                <tr><td>17h45</td><td>Comunhão / Diálogo (perguntas)</td></tr>
+                <tr><td>18h</td><td>Reunião de grupo</td></tr>
+                <tr class="highlight"><td>19h</td><td>Jantar</td></tr>
+                <tr><td>20h30</td><td>Seção Cinema: Chiara Lubich (filme e conversa)</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- DOMINGO -->
+    <div class="day-section section-domingo">
+        <div class="day-title">Domingo</div>
+        <table>
+            <thead>
+                <tr>
+                    <th class="time-col">Hora</th>
+                    <th class="prog-col">Programa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="highlight"><td>7h30 às 8h30</td><td>Café</td></tr>
+                <tr><td>9h</td><td>Canções sala e dinâmica</td></tr>
+                <tr><td>9h15</td><td>Dinâmica</td></tr>
+                <tr><td>9h30</td><td>Tema: Proximidade (nossa método)</td></tr>
+                <tr class="highlight"><td>10h</td><td>Intervalo</td></tr>
+                <tr><td>10h45</td><td>Experiências</td></tr>
+                <tr><td>11h30</td><td>Missa</td></tr>
+                <tr class="highlight"><td>12h30</td><td>Almoço</td></tr>
+                <tr><td>15h</td><td>Canções sala</td></tr>
+                <tr><td>15h10</td><td>Dinâmica e separação dos grupos das oficinas</td></tr>
+                <tr><td>15h20</td><td>Oficinas/Workshops</td></tr>
+                <tr class="highlight"><td>16h15</td><td>Intervalo</td></tr>
+                <tr><td>17h</td><td>Canções</td></tr>
+                <tr><td>17h15</td><td>Tema voltado para formação humana</td></tr>
+                <tr><td>17h45</td><td>Comunhão / Diálogo (perguntas)</td></tr>
+                <tr><td>18h</td><td>Reunião de grupo</td></tr>
+                <tr class="highlight"><td>19h</td><td>Jantar</td></tr>
+                <tr><td>20h30</td><td>Mariapolital/Talentos</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- SEGUNDA-FEIRA -->
+    <div class="day-section section-segunda">
+        <div class="day-title">Segunda-feira</div>
+        <table>
+            <thead>
+                <tr>
+                    <th class="time-col">Hora</th>
+                    <th class="prog-col">Programa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="highlight"><td>7h30 às 8h30</td><td>Café</td></tr>
+                <tr><td>9h</td><td>Canções sala e dinâmica</td></tr>
+                <tr><td>9h15</td><td>Dinâmica</td></tr>
+                <tr><td>9h30</td><td>Tema: Proximidade (nossa visão)</td></tr>
+                <tr class="highlight"><td>10h</td><td>Intervalo</td></tr>
+                <tr><td>10h30</td><td>Experiências</td></tr>
+                <tr><td>11h30</td><td>Fechamento / Comunhão (impressões)</td></tr>
+                <tr><td>12h</td><td>Missa</td></tr>
+                <tr class="highlight"><td>12h30</td><td>Almoço</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

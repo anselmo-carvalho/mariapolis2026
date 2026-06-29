@@ -1,0 +1,9 @@
+# Ignore everything
+/*
+
+# Except PaginasWeb folder
+!PaginasWeb/
+!PaginasWeb/**
+
+# But do not ignore .gitignore itself
+!.gitignore
