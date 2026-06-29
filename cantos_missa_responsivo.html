@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cantos para a Missa</title>
+  <style>
+    :root {
+      --font-scale: 1;
+      --base-font: 22px;
+      --primary: #1f2937;
+      --secondary: #4b5563;
+      --muted: #6b7280;
+      --bg: #f5f5f4;
+      --card: #ffffff;
+      --accent: #8b5e3c;
+    }
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--primary);
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.7;
+      font-size: calc(var(--base-font) * var(--font-scale));
+    }
+
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 24px 18px 80px;
+    }
+
+    .font-controls {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(255,255,255,0.95);
+      border-radius: 50px;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+      z-index: 999;
+      border: 1px solid rgba(0,0,0,0.05);
+      backdrop-filter: blur(6px);
+    }
+
+    .font-btn {
+      width: 36px;
+      height: 36px;
+      border: none;
+      border-radius: 50%;
+      background: transparent;
+      color: var(--accent);
+      font-size: calc(1.2rem * var(--font-scale));
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .font-btn:hover {
+      background: #f0f0f0;
+    }
+
+    .font-btn.reset {
+      font-size: calc(1rem * var(--font-scale));
+      font-weight: 500;
+      width: auto;
+      border-radius: 30px;
+      padding: 0 12px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 10px;
+      margin-bottom: 32px;
+      font-size: 1.5em;
+      color: var(--primary);
+    }
+
+    .indice {
+      background: var(--card);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      margin-bottom: 50px;
+    }
+
+    .indice h2 {
+      margin-top: 24px;
+      font-size: 1.1em;
+      border-bottom: 2px solid #d6d3d1;
+      padding-bottom: 8px;
+      color: var(--accent);
+    }
+
+    .indice ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .indice li {
+      margin: 10px 0;
+    }
+
+    .indice a {
+      text-decoration: none;
+      color: var(--primary);
+      transition: color 0.2s ease;
+    }
+
+    .indice a:hover {
+      color: var(--accent);
+    }
+
+    .canto {
+      background: var(--card);
+      border-radius: 20px;
+      padding: 40px 30px 70px;
+      margin-bottom: 40px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      position: relative;
+    }
+
+    .codigo {
+      font-weight: bold;
+      font-size: 1em;
+      margin-right: 14px;
+      text-decoration: underline;
+    }
+
+    .titulo {
+      font-size: 1.25em;
+      font-weight: bold;
+    }
+
+    .autor {
+      text-align: right;
+      font-style: italic;
+      color: var(--secondary);
+      margin-bottom: 30px;
+      font-size: 0.9em;
+    }
+
+    .letra {
+      white-space: pre-line;
+    }
+
+    .no-pre {
+      white-space: normal;
+    }
+
+    .letra.gloria-layout {
+      white-space: normal;
+    }
+
+    .cancao-gloria {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .imagem-cancao {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 28px;
+    }
+
+    .imagem-cancao svg {
+      width: 100%;
+      max-width: 320px;
+      height: auto;
+      border-radius: 20px;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
+    }
+
+    .estrofe {
+      font-size: 1.08em;
+      line-height: 1.8;
+      margin-bottom: 18px;
+    }
+
+    .duas-vozes,
+    .refrain {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 30px;
+    }
+
+    .voz {
+      font-size: 1.05em;
+      line-height: 1.8;
+    }
+
+    .negrito {
+      font-weight: 700;
+    }
+
+    @media (max-width: 768px) {
+      .duas-vozes,
+      .refrain {
+        grid-template-columns: 1fr;
+        gap: 22px;
+      }
+
+      .estrofe,
+      .voz {
+        font-size: 1rem;
+      }
+    }
+
+    .home-btn {
+      position: absolute;
+      right: 24px;
+      bottom: 20px;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: white;
+      font-size: 26px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: transform 0.2s ease;
+    }
+
+    .home-btn:hover {
+      transform: scale(1.08);
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 28px;
+      color: var(--muted);
+      font-size: calc(0.9em * var(--font-scale));
+    }
+
+    @media (max-width: 768px) {
+      :root {
+        --base-font: 20px;
+      }
+
+      .container {
+        padding: 16px 10px 80px;
+      }
+
+      .indice,
+      .canto {
+        padding: 24px 18px 70px;
+      }
+
+      h1 {
+        font-size: 1.3em;
+      }
+
+      .indice h2 {
+        font-size: 1em;
+      }
+
+      .titulo {
+        font-size: 1.1em;
+      }
+
+      .font-controls {
+        top: 12px;
+        right: 12px;
+        padding: 6px 12px;
+      }
+
+      .font-btn {
+        width: 32px;
+        height: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="font-controls">
+      <button class="font-btn" id="decreaseFont">A-</button>
+      <button class="font-btn reset" id="resetFont">A</button>
+      <button class="font-btn" id="increaseFont">A+</button>
+    </div>
+
+    <h1 id="topo">Cantos para a Missa</h1>
+
+    <section class="indice">
+      <h2>CÂNTICOS DE ENTRADA</h2>
+      <ul>
+        <li><a href="#cantai-a-deus">Cantai a Deus</a></li>
+        <li><a href="#cantemos-ao-senhor">Cantemos ao Senhor</a></li>
+      </ul>
+
+      <h2>CÂNTICOS PENITENCIAIS</h2>
+      <ul>
+        <li><a href="#senhor-piedade">Senhor, piedade</a></li>
+        <li><a href="#senhor-que-vieste">Senhor que vieste salvar</a></li>
+      </ul>
+
+      <h2>CÂNTICOS DE GLÓRIA</h2>
+      <ul>
+        <li><a href="#gloria-no-alto">Glória no alto dos céus</a></li>
+      </ul>
+
+      <h2>ACLAMAÇÃO DO EVANGELHO</h2>
+      <ul>
+        <li><a href="#aleluia">Aleluia – I</a></li>
+      </ul>
+
+      <h2>CÂNTICOS DE OFERENDAS</h2>
+      <ul>
+        <li><a href="#abencoa">Abençoa</a></li>
+        <li><a href="#acolhe">Acolhe a nossa oferta</a></li>
+      </ul>
+
+      <h2>CÂNTICOS PARA O SANTO</h2>
+      <ul>
+        <li><a href="#santo">Santo – I</a></li>
+      </ul>
+
+      <h2>COMUNHÃO</h2>
+      <ul>
+        <li><a href="#atua-vontade">A tua vontade</a></li>
+        <li><a href="#fogo-vivo">Fogo vivo</a></li>
+      </ul>
+
+      <h2>CÂNTICOS FINAIS</h2>
+      <ul>
+        <li><a href="#obrigado">Obrigado</a></li>
+        <li><a href="#maria">Maria</a></li>
+      </ul>
+    </section>
+
+    <section class="canto" id="cantai-a-deus">
+      <div>
+        <span class="titulo">Cantai a Deus</span>
+      </div>
+      <div class="autor">(Gen Rosso — Benedikt Enderle / Valerio Ciprì)</div>
+      <div class="letra">Ô, ô, ô, ô, ô.
+
+Cantai a Deus,
+Céus imensos, infinitos.
+Cantai a Deus,
+Todos os seus anjos.
+Cantai a Deus,
+Santos do seu reino.
+Cantai e louvai a Deus:
+Deus vos ama.
+Cantai e louvai a Deus:
+Deus está em vós!</div>
+      <a class="home-btn" href="#topo">⌂</a>
+    </section>
+
+    <section class="canto" id="cantemos-ao-senhor">
+      <div>
+        <span class="titulo">Cantemos ao Senhor</span>
+      </div>
+      <div class="autor">(Gen Verde — Marie Thérèse Henderson)</div>
+      <div class="letra"><strong>Cantemos ao senhor
+um cântico novo,
+Cantemos a glória do seu nome:
+grande é o amor, a sua bondade.
+Cantemos a ele pra sempre.</strong>
+
+É luz para nós, nunca nos abandona.
+À sua sombra nós repousamos.
+Renova a face da Terra,
+Transforma tristeza em alegria,
+Nos guia com a sua graça
+E nos chama a habitar em sua casa.</div>
+      <a class="home-btn" href="#topo">⌂</a>
+    </section>
+
+    <section class="canto" id="senhor-piedade">
+      <div>
+        <span class="titulo">Senhor, piedade</span>
+      </div>
+      <div class="autor">(Gen Rosso — Benedikt Enderle / Valerio Ciprì)</div>
+      <div class="letra">Senhor,
+Senhor, piedade.
+Cristo,
+Cristo, piedade de nós. (BIS)
+
+Senhor, piedade,
+piedade de nós.
+Senhor,
+Senhor, piedade,
+piedade de nós.</div>
+      <a class="home-btn" href="#topo">⌂</a>
+    </section>
+
+    <section class="canto" id="senhor-que-vieste">
+      <div>
+        <span class="titulo">Senhor que vieste salvar</span>
+      </div>
+      <div class="autor">(Pe. José Cândido da Silva)</div>
+      <div class="letra">1. Senhor que vieste salvar
+Os corações arrependidos
+<strong>Piedade, piedade, piedade de nós (2x)</strong>
+
+2. Ó Cristo, que vieste chamar
+Os pecadores humilhados
+
+3. Senhor que intercedei por nós
+Junto a Deus Pai, que nos perdoa</div>
+      <a class="home-btn" href="#topo">⌂</a>
+    </section>
+
+    <section class="canto" id="gloria-no-alto">
+      <div>
+        <span class="titulo">Glória no alto dos céus</span>
+      </div>
+      <div class="autor">(Gen Verde — Marie Thérèse Henderson / Jocelyn Belamide)</div>
+      <div class="letra gloria-layout">
+        <div class="cancao-gloria">
+          <div class="estrofe">
+            Glória, glória a Deus.<br>
+            Glória, glória no alto dos céus.<br>
+            Paz na terra aos homens,<br>
+            Amados pelo Pai.<br>
+            Glória!
+          </div>
+
+          <div class="estrofe">
+            Nós te louvamos, nós te bendizemos.<br>
+            Te adoramos, rendemos glória a ti.<br>
+            Nós te damos graças pela tua imensa glória.
+          </div>
+
+          <div class="duas-vozes">
+            <div class="voz negrito">
+              Senhor Deus. Glória.<br>
+              Rei dos Céus. Glória.<br>
+              Deus Pai, Deus onipotente.<br>
+              Glória. Glória.
+            </div>
+            <div class="voz negrito">
+              Senhor Deus,<br>
+              Rei dos Céus. Glória.<br>
+              Deus, Deus Pai.
+            </div>
+          </div>
+
+          <div class="refrain">
+            <div class="voz">
+              Glória, Glória<br>
+              Glória a Deus<br>
+              Glória, glória<br>
+              No alto dos céus.<br>
+              Paz na terra aos<br>
+              Homens amados<br>
+              Pelo Pai.<br>
+              Glória Glória.
+            </div>
+            <div class="voz">
+              No alto dos céus.<br>
+              Paz aqui nesta terra.<br>
+              Paz aos homens,<br>
+              Paz.
+            </div>
+          </div>
+
+          <div class="duas-vozes">
+            <div class="voz negrito">
+              Porque só Tu<br>
+              És o Santo, o Senhor.<br>
+              Só Tu, o Altíssimo,<br>
+              Cristo Jesus,<br>
+              Com o Espírito Santo<br>
+              Na glória de Deus,<br>
+              Deus Pai.
+            </div>
+            <div class="voz negrito">
+              Jesus Cristo,<br>
+              Com o Santo<br>
+              Espírito<br>
+              Na glória,<br>
+              Glória de Deus Pai.
+            </div>
+          </div>
+
+          <div class="refrain">
+            <div class="voz">
+              Glória, Glória<br>
+              Glória a Deus<br>
+              Glória, glória<br>
+              No alto dos céus.<br>
+              Paz na terra aos<br>
+              Homens amados<br>
+              Pelo Pai.<br>
+              Glória Glória.
+            </div>
+            <div class="voz">
+              No alto dos céus.<br>
+              Paz aqui nesta terra.<br>
+              Paz aos homens,<br>
+              Paz.
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="home-btn" href="#topo">⌂</a>
+    </section>
+
+    <section class="canto" id="aleluia">
+      <div>
+        <span class="titulo">Aleluia – I</span>
+      </div>
+      <div class="autor">(Gen Rosso — Benedikt Enderle / Valerio Ciprì)</div>
+      <div class="letra"><strong>Aleluia, aleluia,
+Aleluia, aleluia.
+exultemos no senhor!</strong>
+
+1. Exultemos em Cristo Salvador:
+Vive na sua Igreja,
+Leva os homens para a paz.
+
+2. Exultemos em Cristo Salvador:
+Nele renascerá
+Todo homem desta Terra.</div>
+      <a class="home-btn" href="#topo">⌂</a>
+    </section>
+
+    <section class="canto" id="abencoa">
+      <div>
+        <span class="titulo">Abençoa</span>
+      </div>
+      <div class="autor">(Gen Rosso — Benedikt Enderle / Valerio Ciprì)</div>
+      <div class="letra">Noite e dia, longas madrugadas,
+E a semente espera.
+E o milagre antigo e sempre novo
+Fecunda toda a terra.
+Do grão morto e pisado, a vida nascerá:
+Na mesa, eis o pão.
+
+<strong>Abençoa, ó senhor,
+nossa oferta, dá-nos tua paz
+e a unidade no teu corpo,
+Que se consuma também por nós.</strong>
+
+Nossas vinhas, com o sol aberto,
+Já estão florindo.
+E o orvalho, no silêncio, toca os primeiros frutos.
+E as cores são mais vivas,
+Acendem os grãos maduros:
+Na mesa, eis o vinho.
+
+<strong>Abençoa, ó senhor,
+nossa oferta, dá-nos tua paz
+e a unidade no teu sangue,
+Que se consuma também por nós.</strong></div>
+      <a class="home-btn" href="#topo">⌂</a>
+    </section>
+
+    <section class="canto" id="acolhe">
+      <div>
+        <span class="titulo">Acolhe a nossa oferta</span>
+      </div>
+      <div class="autor">(Gen Verde — Marie Thérèse Henderson)</div>
+      <div class="letra">Acolhe, Senhor, a nossa oferta,
+Neste misterioso encontro
+Da nossa pobreza
+Com a tua grandeza.
+
+Nós te oferecemos tudo
+Que de ti mesmo recebemos.
+Tu, em troca, doa-nos,
+Doa a tua presença.
+
+Acolhe, Senhor, a nossa oferta!</div>
+      <a class="home-btn" href="#topo">⌂</a>
+    </section>
+
+    <section class="canto" id="santo">
+      <div>
+        <span class="titulo">Santo – I</span>
+      </div>
+      <div class="autor">(Gen Rosso — Benedikt Enderle / Valerio Ciprì)</div>
+      <div class="letra">Santo, Santo, Santo
+É o Senhor Deus do universo.
+Os céus e a terra
+Resplandecem da tua glória.
+
+Hosana, hosana, (Bis)
+Hosana no alto dos céus!
+
+Bendito é aquele que vem
+Em nome do Senhor.
+
+Hosana, hosana, (Bis)
+Hosana no alto dos céus!</div>
+      <a class="home-btn" href="#topo">⌂</a>
+    </section>
+
+    <section class="canto" id="atua-vontade">
+      <div>
+        <span class="titulo">A tua vontade</span>
+      </div>
+      <div class="autor">(Gen Festa — Heliomar Ferreira)</div>
+      <div class="letra">Faze de mim como folha ao vento
+Que se deixa sempre transportar,
+Mesmo se não sabe,
+Não sabe nunca onde pousará.
+
+Faze de mim como as águas do mar,
+Que se deixam sempre ondear,
+Sem nunca saber, sem saber quando retornarão.
+
+<strong>Porque, ó deus, o vento e o mar
+ou mesmo o sol, é teu amor!
+Porque, ó deus, partir ou voltar,
+sofrer ou cantar, é sempre amor!</strong>
+
+Faze de mim como neve ao sol,
+que se deixa acariciar sem temor,
+sabendo que depois, depois ao sol se dissolverá.
+
+<strong>Porque, ó deus, a tua vontade
+É sempre amor, és sempre tu!
+porque, ó deus, a tua vontade
+É sempre amor, és sempre tu!</strong><div>
+      <a class="home-btn" href="#topo">⌂</a>
+    </section>
+
+    <section class="canto" id="fogo-vivo">
+      <div>
+        <span class="titulo">Fogo vivo</span>
+      </div>
+      <div class="autor">(Gen Verde — Marie Thérèse Henderson)</div>
+      <div class="letra"><strong>Como fogo vivo se acende em nós
+uma imensa felicidade,
+Que ninguém jamais poderá tirar,
+porque estás entre nós.
+Como é bom sentir que estás aqui,
+lado a lado a nos acompanhar,
+Que venceste a morte pra sempre, que
+tu nos doaste a vida.</strong>
+
+1. Tu partilhas conosco o pão,
+Nossos olhos se abrem,
+Vêem. Vibra o coração.
+És tu! Fica entre nós.
+
+2. E pra sempre repetirás
+Esse gesto de amor.
+Mãos que se abrem pra nós doar
+O pão que faz viver.</div>
+      <a class="home-btn" href="#topo">⌂</a>
+    </section>
+
+    <section class="canto" id="obrigado">
+      <div>
+        <span class="titulo">Obrigado</span>
+      </div>
+      <div class="autor">(Gen Verde — Marie Thérèse Henderson)</div>
+      <div class="letra no-pre">Porque Tu me tens amado como Tu sabes amar,<br>
+Pois perdi o meu olhar na tua imensidão,<br>
+<br>
+<strong>Se um dia perguntasses quem sou,<br>
+Não diria o meu nome; diria: Obrigado<br>
+Por tudo e pra sempre. Obrigado, obrigado.</strong><br>
+<br>
+Quando eu chegar a ti, à tua porta,<br>
+Eu me perderei em ti, me perderei em ti.<br>
+<br>
+<strong>Quando Tu me perguntares quem sou,<br>
+Não direi o meu nome; direi: Obrigado<br>
+Por tudo e pra sempre. Obrigado, obrigado.</strong></div>
+      <a class="home-btn" href="#topo">⌂</a>
+    </section>
+
+    <section class="canto" id="maria">
+      <div>
+        <span class="titulo">Maria</span>
+      </div>
+      <div class="autor">(Gen Rosso — Benedikt Enderle / Valerio Ciprì)</div>
+      <div class="letra">1. Quando o Amor quis na terra reinar,
+A sua palavra quis ao mundo anunciar,
+A sua celeste harmonia
+Ansiava entre nós ecoar.
+
+Pra realizar este plano, o Senhor
+Quis encontrar um silêncio de amor.
+A luz nesta sombra brilhou
+E a harmonia no silêncio ecoou.
+
+<strong>Quem é esta sombra tão bela,
+morrendo no sol, resplandece mais?
+e este silêncio altíssimo de amor?
+Maria, és tu!</strong>
+
+2. De ti queremos, em eterno, cantar,
+Imenso céu que contém o amor.
+Tu és a Mãe e por ti veio entre nós
+O Senhor, o Senhor!</div>
+      <a class="home-btn" href="#topo">⌂</a>
+    </section>
+
+    <div class="footer">
+      Mariápolis 2026 • Movimento dos Focolares
+    </div>
+
+  </div>
+
+  <script>
+    const increaseBtn = document.getElementById('increaseFont');
+    const decreaseBtn = document.getElementById('decreaseFont');
+    const resetBtn = document.getElementById('resetFont');
+
+    let scale = 1;
+
+    function updateFontScale() {
+      document.documentElement.style.setProperty('--font-scale', scale);
+      localStorage.setItem('fontScale', scale);
+    }
+
+    increaseBtn.addEventListener('click', () => {
+      if (scale < 1.6) {
+        scale += 0.1;
+        updateFontScale();
+      }
+    });
+
+    decreaseBtn.addEventListener('click', () => {
+      if (scale > 0.7) {
+        scale -= 0.1;
+        updateFontScale();
+      }
+    });
+
+    resetBtn.addEventListener('click', () => {
+      scale = 1;
+      updateFontScale();
+    });
+
+    window.onload = () => {
+      const saved = localStorage.getItem('fontScale');
+      if (saved) {
+        scale = parseFloat(saved);
+        updateFontScale();
+      }
+    };
+  </script>
+</body>
+</html>
