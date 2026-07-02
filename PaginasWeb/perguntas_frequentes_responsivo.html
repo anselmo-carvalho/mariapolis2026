@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- Metadados essenciais para codificação UTF-8, visualização responsiva e título da página -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Perguntas Frequentes — Mariápolis 2026</title>
+
+  <!-- Pré-conexão e importação de fontes do Google para tipografia personalizada -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* Variáveis de tema: cores, bordas, sombras, borda arredondada e escala base da fonte */
+    :root {
+      --bg: #f4f4f4;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --accent: #9b6a3f;
+      --accent-dark: #7c5432;
+      --border: #e5e7eb;
+      --shadow: 0 10px 30px rgba(0,0,0,0.06);
+      --radius: 22px;
+      --font-scale: 1;
+    }
+
+    /* Reset global básico para margens, espaçamentos e box-sizing consistente */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Estilo de fundo padrão do documento */
+    html {
+      background: #f4f4f4;
+      min-height: 100%;
+    }
+
+    /* Estilo geral do corpo: tipografia, espaçamento e transição de tamanho de fonte */
+    body {
+      background: #f4f4f4;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: calc(17px * var(--font-scale));
+      line-height: 1.7;
+      min-height: 100vh;
+      width: 100%;
+      padding: 24px;
+      transition: font-size 0.2s ease;
+    }
+
+    /* Contêiner fixo de controle de tamanho de fonte no canto superior direito */
+    .font-controls {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: white;
+      border-radius: 50px;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+      z-index: 999;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    /* Botões circulares de controle de fonte com estilo clean */
+    .font-btn {
+      width: 36px;
+      height: 36px;
+      border: none;
+      border-radius: 50%;
+      background: transparent;
+      color: var(--accent);
+      font-size: calc(1.2rem * var(--font-scale));
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Efeito de foco ao passar o mouse sobre os botões de fonte */
+    .font-btn:hover {
+      background: #f0f0f0;
+    }
+
+    /* Botão central de reset com largura adaptada */
+    .font-btn.reset {
+      font-size: calc(1rem * var(--font-scale));
+      font-weight: 500;
+      width: auto;
+      border-radius: 30px;
+      padding: 0 12px;
+    }
+
+    /* Contêiner principal centralizado com largura limitada */
+    .container {
+      max-width: 980px;
+      margin: 100px auto 40px;
+    }
+
+    /* Título da página com fonte serifada e tamanho responsivo */
+    .page-title {
+      text-align: center;
+      font-family: 'Merriweather', serif;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 700;
+      margin-bottom: 36px;
+      color: #1e293b;
+      line-height: 1.2;
+    }
+
+    /* Cartão que envolve toda a lista de FAQ com sombra e borda arredondada */
+    .faq-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    /* Cada item do acordeão recebe uma linha divisória inferior */
+    .accordion-item {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .accordion-item:last-child {
+      border-bottom: none;
+    }
+
+    /* Botão expansível que funciona como cabeçalho da pergunta */
+    .accordion-button {
+      width: 100%;
+      background: transparent;
+      border: none;
+      text-align: left;
+      padding: 24px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    /* Hover suave para botão do acordeão */
+    .accordion-button:hover {
+      background: rgba(155, 106, 63, 0.05);
+    }
+
+    /* Estilo dos textos das perguntas, com destaque de cor e peso */
+    .accordion-question {
+      font-family: 'Merriweather', serif;
+      font-size: calc(1.35em * var(--font-scale));
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1.4;
+    }
+
+    /* Ícone do acordeão que indica abertura/fechamento */
+    .accordion-icon {
+      min-width: 32px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: calc(1.1rem * var(--font-scale));
+      transition: transform 0.25s ease;
+    }
+
+    /* Rotate o ícone quando o item estiver aberto */
+    .accordion-item.active .accordion-icon {
+      transform: rotate(45deg);
+    }
+
+    /* Conteúdo escondido por padrão do acordeão */
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+    }
+
+    /* Área interna do conteúdo da resposta com espaçamento e fonte menor */
+    .accordion-inner {
+      padding: 0 12px 26px;
+      color: var(--text);
+      font-size: calc(0.98em * var(--font-scale));
+    }
+
+    .accordion-inner p {
+      margin-bottom: 14px;
+    }
+
+    .accordion-inner ul,
+    .accordion-inner ol {
+      margin: 12px 0 18px 22px;
+    }
+
+    .accordion-inner li {
+      margin-bottom: 10px;
+    }
+
+    /* Texto destacado usado em partes importantes da explicação */
+    .highlight {
+      color: var(--accent-dark);
+      font-weight: 600;
+    }
+
+    /* Rodapé simples com informação do evento */
+    .footer {
+      text-align: center;
+      margin-top: 28px;
+      color: var(--muted);
+      font-size: calc(0.9em * var(--font-scale));
+    }
+
+    /* Ajustes responsivos para telas menores */
+    @media (max-width: 768px) {
+      body {
+        padding: 16px;
+      }
+
+      .container {
+        margin-top: 90px;
+      }
+
+      .faq-card {
+        padding: 10px;
+        border-radius: 18px;
+      }
+
+      .accordion-button {
+        padding: 20px 10px;
+      }
+
+      .font-controls {
+        top: 12px;
+        right: 12px;
+        left: auto;
+        padding: 6px 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Bloco de controles de acessibilidade para ajustar o tamanho do texto -->
+  <div class="font-controls">
+    <button class="font-btn" id="decreaseFont">A-</button>
+    <button class="font-btn" id="resetFont">A</button>
+    <button class="font-btn" id="increaseFont">A+</button>
+  </div>
+
+  <div class="container">
+    <!-- Cabeçalho principal com título descritivo da página de perguntas frequentes -->
+    <h1 class="page-title">Perguntas Frequentes — Mariápolis 2026</h1>
+
+    <!-- Cartão que contém todas as perguntas e respostas do acordeão -->
+    <div class="faq-card">
+
+      <!-- Bloco de pergunta 1: definição da Mariápolis -->
+      <div class="accordion-item">
+        <button class="accordion-button">
+          <span class="accordion-question">O que é a Mariápolis?</span>
+          <span class="accordion-icon">+</span>
+        </button>
+        <div class="accordion-content">
+          <div class="accordion-inner">
+            <p>
+              A Mariápolis é o evento de verão do Movimento dos Focolares.
+              Seu objetivo é criar, durante alguns dias, uma experiência concreta de fraternidade,
+              convivência e amor ao próximo.
+            </p>
+
+            <p>
+              A palavra <span class="highlight">Mariápolis</span> vem da união de:
+            </p>
+
+            <ul>
+              <li><strong>Maria</strong> — referência à Maria, mãe de Jesus</li>
+              <li><strong>Polis</strong> — “cidade”, em grego</li>
+            </ul>
+
+            <p>
+              O significado é: <strong>“Cidade de Maria”</strong>.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bloco de pergunta 2: distinção entre evento temporário e Mariápolis permanente -->
+      <div class="accordion-item">
+        <button class="accordion-button">
+          <span class="accordion-question">Qual a diferença entre o evento e uma Mariápolis permanente?</span>
+          <span class="accordion-icon">+</span>
+        </button>
+        <div class="accordion-content">
+          <div class="accordion-inner">
+            <p><strong>Evento temporário:</strong></p>
+            <p>
+              É um encontro de alguns dias, onde as pessoas participam da programação,
+              convivem em comunidade e depois retornam para suas cidades.
+            </p>
+
+            <p><strong>Mariápolis permanente:</strong></p>
+            <p>
+              São pequenas cidades mantidas pelo Movimento dos Focolares durante todo o ano,
+              como a Mariápolis Ginetta (SP) e Santa Maria (PE).
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bloco de pergunta 3: local de realização das encontros no Centro-Oeste -->
+      <div class="accordion-item">
+        <button class="accordion-button">
+          <span class="accordion-question">Onde acontece a Mariápolis do Centro-Oeste?</span>
+          <span class="accordion-icon">+</span>
+        </button>
+        <div class="accordion-content">
+          <div class="accordion-inner">
+            <p>
+              Habitualmente, os encontros da Mariápolis ocorrem em casas de retiro, centros de
+              formação ou sítios afastados, onde é possível favorecer o contato fraterno, o
+              silêncio e a convivência. Neste ano, a Mariápolis 2026 será realizada no Auditório
+              da Paróquia Verbo Divino, em Brasília.
+            </p>
+
+            <p>
+              <strong>Local:</strong> Auditório da Paróquia Verbo Divino — SGAN 609 Módulo C, Asa Norte, Brasília - DF
+            </p>
+
+            <p>
+              <a href="https://www.google.com/maps/place/Par%C3%B3quia+Verbo+Divino/@-15.758169,-47.8780679,17z/data=!3m1!4b1!4m6!3m5!1s0x935a3b07b14eaf55:0x415875eaa8575c8a!8m2!3d-15.758169!4d-47.8780679!16s%2Fg%2F1tsr48qh!18m1!1e1?entry=ttu&g_ep=EgoyMDI2MDYwMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener">Ver no Google Maps</a>
+            </p>
+
+            <p>
+              Esperamos que o novo espaço contribua para uma experiência acolhedora e fraterna.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bloco de pergunta 4: público alvo do evento -->
+      <div class="accordion-item">
+        <button class="accordion-button">
+          <span class="accordion-question">Quem pode participar?</span>
+          <span class="accordion-icon">+</span>
+        </button>
+        <div class="accordion-content">
+          <div class="accordion-inner">
+            <p>
+              A Mariápolis é aberta a todos.
+            </p>
+
+            <ul>
+              <li>Famílias</li>
+              <li>Jovens</li>
+              <li>Crianças e adolescentes</li>
+              <li>Casais</li>
+              <li>Pessoas sozinhas</li>
+              <li>Pessoas de qualquer religião — ou sem religião</li>
+            </ul>
+
+            <p>
+              O importante é desejar viver uma experiência de fraternidade,
+              diálogo e convivência.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bloco de pergunta 5: descrição geral da programação -->
+      <div class="accordion-item">
+        <button class="accordion-button">
+          <span class="accordion-question">Como é a programação?</span>
+          <span class="accordion-icon">+</span>
+        </button>
+        <div class="accordion-content">
+          <div class="accordion-inner">
+            <p>
+              A programação mistura espiritualidade, convivência, cultura e lazer.
+            </p>
+
+            <ul>
+              <li>Palestras e oficinas</li>
+              <li>Partilhas de vida</li>
+              <li>Momentos de oração e reflexão</li>
+              <li>Música e apresentações culturais</li>
+              <li>Atividades recreativas</li>
+              <li>Momentos de convivência entre as famílias e participantes</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bloco de pergunta 6: acolhimento religioso ou inter-religioso -->
+      <div class="accordion-item">
+        <button class="accordion-button">
+          <span class="accordion-question">Precisa ser católico para participar?</span>
+          <span class="accordion-icon">+</span>
+        </button>
+        <div class="accordion-content">
+          <div class="accordion-inner">
+            <p>
+              Não.
+            </p>
+
+            <p>
+              Embora o Movimento dos Focolares tenha raízes católicas,
+              a Mariápolis acolhe pessoas de outras religiões,
+              outras igrejas cristãs e também quem não possui religião,
+              mas busca valores humanos como paz, fraternidade e sinceridade.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bloco de pergunta 7: qual é o valor para participar da Mariápolis -->
+      <div class="accordion-item">
+        <button class="accordion-button">
+          <span class="accordion-question">Qual é o valor para participar da Mariápolis?</span>
+          <span class="accordion-icon">+</span>
+        </button>
+        <div class="accordion-content">
+          <div class="accordion-inner">
+            <p>
+              A participação na Mariápolis 2026, que acontecerá nos dias 5, 6 e 7 de setembro, tem o valor de <span class="highlight">R$ 460,00 por pessoa</span>. Crianças de até 5 anos participam gratuitamente, e crianças de 6 a 10 anos pagam apenas <span class="highlight">50% desse valor</span>.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bloco de pergunta 8: refeições e desconto na inscrição -->
+      <div class="accordion-item">
+        <button class="accordion-button">
+          <span class="accordion-question">Sou adulto e não farei as refeições no local. Há desconto no valor da inscrição?</span>
+          <span class="accordion-icon">+</span>
+        </button>
+        <div class="accordion-content">
+          <div class="accordion-inner">
+            <p>
+              O valor da inscrição permanece o mesmo. A contribuição de cada participante ajuda a visualizar toda a estrutura do evento, incluindo espaços, programação, logística e demais serviços necessários para que todos possam viver plenamente a experiência da Mariápolis.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bloco de pergunta 9: participação sem hospedagem no local -->
+      <div class="accordion-item">
+        <button class="accordion-button">
+          <span class="accordion-question">Pretendo participar da Mariápolis, mas não ficarei hospedado no local. O valor da inscrição muda?</span>
+          <span class="accordion-icon">+</span>
+        </button>
+        <div class="accordion-content">
+          <div class="accordion-inner">
+            <p>
+              Não. O valor da inscrição é o mesmo para todos os participantes. Isso ocorre porque a maior parte dos custos do evento está relacionada à organização e é a realização da Mariápolis como um todo, independentemente da modalidade de hospedagem escolhida.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bloco de pergunta 10: participação por um dia -->
+      <div class="accordion-item">
+        <button class="accordion-button">
+          <span class="accordion-question">Gostaria de participar apenas um dia da Mariápolis. Como funciona a inscrição?</span>
+          <span class="accordion-icon">+</span>
+        </button>
+        <div class="accordion-content">
+          <div class="accordion-inner">
+            <p>
+              Quem desejar participar de apenas um dia poderá fazê-lo mediante uma contribuição de <span class="highlight">R$ 200,00</span>. Dessa forma, mesmo quem não dispõe de todo o final de semana poderá viver um pouco da experiência de fraternidade, convivência e espiritualidade que caracteriza a Mariápolis.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bloco de pergunta 11: como fazer inscrição -->
+      <div class="accordion-item">
+        <button class="accordion-button">
+          <span class="accordion-question">Como eu faço para me inscrever?</span>
+          <span class="accordion-icon">+</span>
+        </button>
+        <div class="accordion-content">
+          <div class="accordion-inner">
+            <p>
+              Entre no link <strong>https://linktr.ee/mariapolis.centro.oeste</strong>
+            </p>
+
+            <p>
+              Lá você encontrará o link para o formulário de inscrição.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bloco de pergunta 12: benefícios esperados ao participar -->
+      <div class="accordion-item">
+        <button class="accordion-button">
+          <span class="accordion-question">Por que participar?</span>
+          <span class="accordion-icon">+</span>
+        </button>
+        <div class="accordion-content">
+          <div class="accordion-inner">
+            <p>
+              Quem participa normalmente leva consigo:
+            </p>
+
+            <ul>
+              <li>Novas amizades</li>
+              <li>Paz interior</li>
+              <li>Esperança renovada</li>
+              <li>Ferramentas para melhorar relacionamentos</li>
+              <li>Experiências concretas de fraternidade</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bloco de pergunta 13: regras e clima do evento -->
+      <div class="accordion-item">
+        <button class="accordion-button">
+          <span class="accordion-question">Existem regras rígidas?</span>
+          <span class="accordion-icon">+</span>
+        </button>
+        <div class="accordion-content">
+          <div class="accordion-inner">
+            <p>
+              A principal proposta da Mariápolis é viver o respeito mútuo e a fraternidade.
+            </p>
+
+            <p>
+              Não existem cobranças rígidas sobre vestimentas ou comportamento,
+              apenas o compromisso voluntário de convivência harmoniosa.
+            </p>
+
+            <p>
+              A inspiração central é:
+              <strong>“Amai-vos uns aos outros”.</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- NOVO BLOCO: Pergunta sobre hospedagem (substituída pelo texto solicitado) -->
+      <div class="accordion-item">
+        <button class="accordion-button">
+          <span class="accordion-question">Como é a hospedagem?</span>
+          <span class="accordion-icon">+</span>
+        </button>
+        <div class="accordion-content">
+          <div class="accordion-inner">
+            <p>
+              A hospedagem segue um estilo simples, acolhedor e fraterno, semelhante ao de uma casa de retiros. Em geral, homens e mulheres ficam hospedados em alas separadas, com quartos coletivos. As famílias, sempre que a estrutura do local permitir, serão acomodadas em quartos privativos.
+            </p>
+
+            <p>
+              Cada participante deverá trazer seu próprio enxoval, incluindo:
+            </p>
+
+            <ul>
+              <li>Lençol para o colchão;</li>
+              <li>Lençol para se cobrir;</li>
+              <li>Fronha para o travesseiro;</li>
+              <li>Toalha de banho.</li>
+            </ul>
+
+            <p>
+              Esses itens não serão fornecidos pela organização. Recomendamos também trazer itens de higiene pessoal e outros objetos de uso individual que considerar necessários para uma estadia confortável.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Rodapé com identificação resumida do evento -->
+    <div class="footer">
+      Mariápolis 2026 • Movimento dos Focolares
+    </div>
+  </div>
+
+  <script>
+    /*
+      Script principal que controla o comportamento do acordeão
+      e os botões de ajuste de font-size.
+    */
+
+    // Seleciona todos os itens do acordeão para ativar/desativar o conteúdo
+    const accordionItems = document.querySelectorAll('.accordion-item');
+
+    accordionItems.forEach(item => {
+      const button = item.querySelector('.accordion-button');
+      const content = item.querySelector('.accordion-content');
+
+      button.addEventListener('click', () => {
+        const isActive = item.classList.contains('active');
+
+        // Fecha todos os itens antes de abrir o item clicado
+        accordionItems.forEach(i => {
+          i.classList.remove('active');
+          i.querySelector('.accordion-content').style.maxHeight = null;
+        });
+
+        // Abre o item clicado somente se ele não estava aberto
+        if (!isActive) {
+          item.classList.add('active');
+          content.style.maxHeight = content.scrollHeight + 'px';
+        }
+      });
+    });
+
+    // Controles de acessibilidade para aumentar, diminuir e resetar a escala de fonte
+    const increaseBtn = document.getElementById('increaseFont');
+    const decreaseBtn = document.getElementById('decreaseFont');
+    const resetBtn = document.getElementById('resetFont');
+
+    let scale = 1;
+
+    function updateFontScale() {
+      document.documentElement.style.setProperty('--font-scale', scale);
+    }
+
+    increaseBtn.addEventListener('click', () => {
+      if (scale < 1.6) {
+        scale += 0.1;
+        updateFontScale();
+      }
+    });
+
+    decreaseBtn.addEventListener('click', () => {
+      if (scale > 0.7) {
+        scale -= 0.1;
+        updateFontScale();
+      }
+    });
+
+    resetBtn.addEventListener('click', () => {
+      scale = 1;
+      updateFontScale();
+    });
+  </script>
+
+</body>
+</html>
