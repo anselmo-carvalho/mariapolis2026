@@ -87,6 +87,7 @@
       margin-bottom: 32px;
       font-size: 1.5em;
       color: var(--primary);
+      padding-top: 70px; /* espaço para os controles fixos */
     }
 
     .indice {
@@ -105,19 +106,18 @@
       color: var(--accent);
     }
 
+    /* Índice como lista vertical, um item por linha */
     .indice ul {
       list-style: none;
       padding-left: 0;
       margin: 16px 0 0 0;
       display: flex;
-      flex-wrap: wrap;
-      gap: 8px 24px;
+      flex-direction: column;
+      gap: 4px;
     }
 
     .indice li {
-      margin: 6px 0;
-      flex: 0 0 auto;
-      width: auto;
+      margin: 0;
     }
 
     .indice a {
@@ -127,6 +127,7 @@
       font-size: 1em;
       padding: 2px 0;
       border-bottom: 1px dotted transparent;
+      display: inline-block;
     }
 
     .indice a:hover {
@@ -143,11 +144,14 @@
       position: relative;
     }
 
-    .codigo {
-      font-weight: bold;
-      font-size: 1em;
-      margin-right: 14px;
-      text-decoration: underline;
+    /* Cabeçalho do canto: título e autor lado a lado no desktop */
+    .canto-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      gap: 8px 16px;
     }
 
     .titulo {
@@ -156,11 +160,10 @@
     }
 
     .autor {
-      text-align: right;
       font-style: italic;
       color: var(--secondary);
-      margin-bottom: 30px;
       font-size: 0.9em;
+      text-align: right;
     }
 
     .letra {
@@ -231,9 +234,18 @@
         font-size: 1rem;
       }
 
-      .indice ul {
+      .canto-header {
         flex-direction: column;
-        gap: 4px;
+        align-items: flex-start;
+      }
+
+      .autor {
+        text-align: left;
+      }
+
+      h1 {
+        padding-top: 80px;
+        margin-top: 0;
       }
     }
 
@@ -310,7 +322,7 @@
       <button class="font-btn" id="increaseFont">A+</button>
     </div>
 
-    <h1 id="topo">Cantos para a Missa</h1>
+    <h1 id="topo">Cantos para o Auditório</h1>
 
     <section class="indice">
       <h2>ÍNDICE</h2>
@@ -332,10 +344,10 @@
     </section>
 
     <section class="canto" id="cantai-a-deus">
-      <div>
+      <div class="canto-header">
         <span class="titulo">Cantai a Deus</span>
+        <span class="autor">(Gen Rosso — Benedikt Enderle / Valerio Ciprì)</span>
       </div>
-      <div class="autor">(Gen Rosso — Benedikt Enderle / Valerio Ciprì)</div>
       <div class="letra">Ô, ô, ô, ô, ô.
 
 Cantai a Deus,
@@ -352,10 +364,10 @@ Deus está em vós!</div>
     </section>
 
     <section class="canto" id="cantemos-ao-senhor">
-      <div>
+      <div class="canto-header">
         <span class="titulo">Cantemos ao Senhor</span>
+        <span class="autor">(Gen Verde — Marie Thérèse Henderson)</span>
       </div>
-      <div class="autor">(Gen Verde — Marie Thérèse Henderson)</div>
       <div class="letra"><strong>Cantemos ao senhor
 um cântico novo,
 Cantemos a glória do seu nome:
@@ -372,10 +384,10 @@ E nos chama a habitar em sua casa.</div>
     </section>
 
     <section class="canto" id="senhor-piedade">
-      <div>
+      <div class="canto-header">
         <span class="titulo">Senhor, piedade</span>
+        <span class="autor">(Gen Rosso — Benedikt Enderle / Valerio Ciprì)</span>
       </div>
-      <div class="autor">(Gen Rosso — Benedikt Enderle / Valerio Ciprì)</div>
       <div class="letra">Senhor,
 Senhor, piedade.
 Cristo,
@@ -390,10 +402,10 @@ piedade de nós.</div>
     </section>
 
     <section class="canto" id="senhor-que-vieste">
-      <div>
+      <div class="canto-header">
         <span class="titulo">Senhor que vieste salvar</span>
+        <span class="autor">(Pe. José Cândido da Silva)</span>
       </div>
-      <div class="autor">(Pe. José Cândido da Silva)</div>
       <div class="letra">1. Senhor que vieste salvar
 Os corações arrependidos
 <strong>Piedade, piedade, piedade de nós (2x)</strong>
@@ -407,10 +419,10 @@ Junto a Deus Pai, que nos perdoa</div>
     </section>
 
     <section class="canto" id="gloria-no-alto">
-      <div>
+      <div class="canto-header">
         <span class="titulo">Glória no alto dos céus</span>
+        <span class="autor">(Gen Verde — Marie Thérèse Henderson / Jocelyn Belamide)</span>
       </div>
-      <div class="autor">(Gen Verde — Marie Thérèse Henderson / Jocelyn Belamide)</div>
       <div class="letra gloria-layout">
         <div class="cancao-gloria">
           <div class="estrofe">
@@ -503,10 +515,10 @@ Junto a Deus Pai, que nos perdoa</div>
     </section>
 
     <section class="canto" id="aleluia">
-      <div>
+      <div class="canto-header">
         <span class="titulo">Aleluia – I</span>
+        <span class="autor">(Gen Rosso — Benedikt Enderle / Valerio Ciprì)</span>
       </div>
-      <div class="autor">(Gen Rosso — Benedikt Enderle / Valerio Ciprì)</div>
       <div class="letra"><strong>Aleluia, aleluia,
 Aleluia, aleluia.
 exultemos no senhor!</strong>
@@ -522,10 +534,10 @@ Todo homem desta Terra.</div>
     </section>
 
     <section class="canto" id="abencoa">
-      <div>
+      <div class="canto-header">
         <span class="titulo">Abençoa</span>
+        <span class="autor">(Gen Rosso — Benedikt Enderle / Valerio Ciprì)</span>
       </div>
-      <div class="autor">(Gen Rosso — Benedikt Enderle / Valerio Ciprì)</div>
       <div class="letra">Noite e dia, longas madrugadas,
 E a semente espera.
 E o milagre antigo e sempre novo
@@ -553,10 +565,10 @@ Que se consuma também por nós.</strong></div>
     </section>
 
     <section class="canto" id="acolhe">
-      <div>
+      <div class="canto-header">
         <span class="titulo">Acolhe a nossa oferta</span>
+        <span class="autor">(Gen Verde — Marie Thérèse Henderson)</span>
       </div>
-      <div class="autor">(Gen Verde — Marie Thérèse Henderson)</div>
       <div class="letra">Acolhe, Senhor, a nossa oferta,
 Neste misterioso encontro
 Da nossa pobreza
@@ -572,10 +584,10 @@ Acolhe, Senhor, a nossa oferta!</div>
     </section>
 
     <section class="canto" id="santo">
-      <div>
+      <div class="canto-header">
         <span class="titulo">Santo – I</span>
+        <span class="autor">(Gen Rosso — Benedikt Enderle / Valerio Ciprì)</span>
       </div>
-      <div class="autor">(Gen Rosso — Benedikt Enderle / Valerio Ciprì)</div>
       <div class="letra">Santo, Santo, Santo
 É o Senhor Deus do universo.
 Os céus e a terra
@@ -593,10 +605,10 @@ Hosana no alto dos céus!</div>
     </section>
 
     <section class="canto" id="atua-vontade">
-      <div>
+      <div class="canto-header">
         <span class="titulo">A tua vontade</span>
+        <span class="autor">(Gen Festa — Heliomar Ferreira)</span>
       </div>
-      <div class="autor">(Gen Festa — Heliomar Ferreira)</div>
       <div class="letra">Faze de mim como folha ao vento
 Que se deixa sempre transportar,
 Mesmo se não sabe,
@@ -623,10 +635,10 @@ porque, ó deus, a tua vontade
     </section>
 
     <section class="canto" id="fogo-vivo">
-      <div>
+      <div class="canto-header">
         <span class="titulo">Fogo vivo</span>
+        <span class="autor">(Gen Verde — Marie Thérèse Henderson)</span>
       </div>
-      <div class="autor">(Gen Verde — Marie Thérèse Henderson)</div>
       <div class="letra"><strong>Como fogo vivo se acende em nós
 uma imensa felicidade,
 Que ninguém jamais poderá tirar,
@@ -649,10 +661,10 @@ O pão que faz viver.</div>
     </section>
 
     <section class="canto" id="obrigado">
-      <div>
+      <div class="canto-header">
         <span class="titulo">Obrigado</span>
+        <span class="autor">(Gen Verde — Marie Thérèse Henderson)</span>
       </div>
-      <div class="autor">(Gen Verde — Marie Thérèse Henderson)</div>
       <div class="letra no-pre">Porque Tu me tens amado como Tu sabes amar,<br>
 Pois perdi o meu olhar na tua imensidão,<br>
 <br>
@@ -670,10 +682,10 @@ Por tudo e pra sempre. Obrigado, obrigado.</strong></div>
     </section>
 
     <section class="canto" id="maria">
-      <div>
+      <div class="canto-header">
         <span class="titulo">Maria</span>
+        <span class="autor">(Gen Rosso — Benedikt Enderle / Valerio Ciprì)</span>
       </div>
-      <div class="autor">(Gen Rosso — Benedikt Enderle / Valerio Ciprì)</div>
       <div class="letra">1. Quando o Amor quis na terra reinar,
 A sua palavra quis ao mundo anunciar,
 A sua celeste harmonia
