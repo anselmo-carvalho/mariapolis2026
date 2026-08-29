@@ -219,6 +219,19 @@
         line-height: 1.15;
       }
 
+      .duas-vozes.alinhadas {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+
+      .voz-row {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 40px;
+        align-items: start;
+      }
+
       .negrito {
         font-weight: 700;
       }
@@ -230,9 +243,13 @@
           gap: 12px;
         }
 
+        .voz-row {
+          gap: 12px;
+        }
+
         .estrofe,
         .voz {
-          font-size: 1rem;
+          font-size: 1em;
         }
 
         .canto-header {
@@ -294,7 +311,7 @@
         }
 
         h1 {
-          font-size: 2.6em;
+          font-size: 1.3em;
         }
 
         .titulo {
@@ -303,7 +320,7 @@
         }
 
         .footer {
-          font-size: calc(1.8em * var(--font-scale));
+          font-size: calc(0.9em * var(--font-scale));
         }
 
         .font-controls {
@@ -325,9 +342,13 @@
           grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
           gap: 24px;
         }
+
+        .voz-row {
+          gap: 24px;
+        }
       }
     </style>
-  <script type="text/javascript" nonce="0163afd331ad4b24a0ebc11308e" src="//local.adguard.org?ts=1788023927028&amp;type=content-script&amp;dmn=private-us-east-1.manuscdn.com&amp;url=https%3A%2F%2Fprivate-us-east-1.manuscdn.com%2FsessionFile%2FSejKqISPeyWzMAbmwaFk7R%2Fsandbox%2FFLeyuXpQBk3kDy2yypuiZ9_1788026154198_na1fn_L2hvbWUvdWJ1bnR1L2NhbnRvc19zYWxhX3Jlc3BvbnNpdm9fY29ycmlnaWRv.html%3FPolicy%3DeyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvU2VqS3FJU1BleVd6TUFibXdhRms3Ui9zYW5kYm94L0ZMZXl1WHBRQmsza0R5Mnl5cHVpWjlfMTc4ODAyNjE1NDE5OF9uYTFmbl9MMmh2YldVdmRXSjFiblIxTDJOaGJuUnZjMTl6WVd4aFgzSmxjM0J2Ym5OcGRtOWZZMjl5Y21sbmFXUnYuaHRtbCIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc4OTQzMDQwMH19fV19%26Key-Pair-Id%3DK2QY5QTL8JSY6C%26Signature%3DMEUCIFZGp4j8SPeh-gyIQYx2L4ZRsu4bs83SvsuURhEAuLJrAiEAlM8Vy24hIbgkWCDULS3Nr7IwvvnHlbsnBBhlLVpROvE_&amp;app=ai.perplexity.comet&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1&amp;stealth=1&amp;st-push&amp;st-loc&amp;st-dnt"></script><script type="text/javascript" nonce="0163afd331ad4b24a0ebc11308e" src="//local.adguard.org?ts=1788023927028&amp;name=AdGuard%20Assistant&amp;name=AdGuard%20Popup%20Blocker&amp;name=AdGuard%20Extra&amp;type=user-script"></script></head>
+  <script type="text/javascript" nonce="0163afd331ad4b24a0ebc11308e" src="//local.adguard.org?ts=1788023927028&amp;type=content-script&amp;dmn=private-us-east-1.manuscdn.com&amp;url=https%3A%2F%2Fprivate-us-east-1.manuscdn.com%2FsessionFile%2FSejKqISPeyWzMAbmwaFk7R%2Fsandbox%2F1lXtU921jp0Pfc3PX7PgM0_1788027298158_na1fn_L2hvbWUvdWJ1bnR1L2NhbnRvc19zYWxhX3Jlc3BvbnNpdm9fY29ycmlnaWRv.html%3FPolicy%3DeyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvU2VqS3FJU1BleVd6TUFibXdhRms3Ui9zYW5kYm94LzFsWHRVOTIxanAwUGZjM1BYN1BnTTBfMTc4ODAyNzI5ODE1OF9uYTFmbl9MMmh2YldVdmRXSjFiblIxTDJOaGJuUnZjMTl6WVd4aFgzSmxjM0J2Ym5OcGRtOWZZMjl5Y21sbmFXUnYuaHRtbCIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc4OTQzMDQwMH19fV19%26Key-Pair-Id%3DK2QY5QTL8JSY6C%26Signature%3DMEUCIC0MZH-6IDv~3qX7qKePmuz2EY2uLeFnBtTbF5koX7urAiEAzYtDro-SEpu9wMrUI2~FiZPLg5dr6DNannG23--qglY_&amp;app=ai.perplexity.comet&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1&amp;stealth=1&amp;st-push&amp;st-loc&amp;st-dnt"></script><script type="text/javascript" nonce="0163afd331ad4b24a0ebc11308e" src="//local.adguard.org?ts=1788023927028&amp;name=AdGuard%20Assistant&amp;name=AdGuard%20Popup%20Blocker&amp;name=AdGuard%20Extra&amp;type=user-script"></script></head>
   <body>
     <div class="container">
       <div class="font-controls">
@@ -560,75 +581,131 @@ Já que somos todos uma só voz<br />
         </div>
         <div class="letra">
           <br />
-<div class="duas-vozes">
-              <div class="voz">Eis que agora dentro em mim<br />
-Tudo já se transformou<br />
-O tesouro escondido<br />
-A minh'alma encontrou<br />
-Como oásis no deserto<br />
-Como a luz na escuridão<br />
-Assim foi com o Ideal<br />
-Quando entrou no coração</div>
-              <div class="voz">Agora em mim<br />
-Tudo mudou<br />
-Só o tesouro<br />
-Já encontrou<br />
-E como a luz<br />
-Na escuridão<br />
-Com o Ideal<br />
-No coração</div>
+<div class="duas-vozes alinhadas">
+              <div class="voz-row">
+                <div class="voz">Eis que agora dentro em mim</div>
+                <div class="voz">Agora em mim</div>
+              </div>
+              <div class="voz-row">
+                <div class="voz">Tudo já se transformou</div>
+                <div class="voz">Tudo mudou</div>
+              </div>
+              <div class="voz-row">
+                <div class="voz">O tesouro escondido</div>
+                <div class="voz">Só o tesouro</div>
+              </div>
+              <div class="voz-row">
+                <div class="voz">A minh'alma encontrou</div>
+                <div class="voz">Já encontrou</div>
+              </div>
+              <div class="voz-row">
+                <div class="voz">Como oásis no deserto</div>
+                <div class="voz">E como a luz</div>
+              </div>
+              <div class="voz-row">
+                <div class="voz">Como a luz na escuridão</div>
+                <div class="voz">Na escuridão</div>
+              </div>
+              <div class="voz-row">
+                <div class="voz">Assim foi com o Ideal</div>
+                <div class="voz">Com o Ideal</div>
+              </div>
+              <div class="voz-row">
+                <div class="voz">Quando entrou no coração</div>
+                <div class="voz">No coração</div>
+              </div>
             </div>
 <br />
-<div class="duas-vozes">
-              <div class="voz"><strong>Somente amar</strong><br />
-<strong>Não mais pensar</strong><br />
-<strong>Naquilo que o tempo já levou</strong><br />
-<strong>Lançar-se então</strong><br />
-<strong>Só no amor</strong><br />
-<strong>Que dá sem nada esperar</strong></div>
-              <div class="voz"><strong>Não mais pensar</strong><br />
-<strong>Somente amar</strong><br />
-<strong>Que o tempo já levou</strong><br />
-<strong>Só no amor</strong><br />
-<strong>Lançar-se então</strong><br />
-<strong>Que dá sem esperar</strong></div>
+<div class="duas-vozes alinhadas">
+              <div class="voz-row">
+                <div class="voz"><strong>Somente amar</strong></div>
+                <div class="voz"><strong>Não mais pensar</strong></div>
+              </div>
+              <div class="voz-row">
+                <div class="voz"><strong>Não mais pensar</strong></div>
+                <div class="voz"><strong>Somente amar</strong></div>
+              </div>
+              <div class="voz-row">
+                <div class="voz"><strong>Naquilo que o tempo já levou</strong></div>
+                <div class="voz"><strong>Que o tempo já levou</strong></div>
+              </div>
+              <div class="voz-row">
+                <div class="voz"><strong>Lançar-se então</strong></div>
+                <div class="voz"><strong>Só no amor</strong></div>
+              </div>
+              <div class="voz-row">
+                <div class="voz"><strong>Só no amor</strong></div>
+                <div class="voz"><strong>Lançar-se então</strong></div>
+              </div>
+              <div class="voz-row">
+                <div class="voz"><strong>Que dá sem nada esperar</strong></div>
+                <div class="voz"><strong>Que dá sem esperar</strong></div>
+              </div>
             </div>
 <br />
-<div class="duas-vozes">
-              <div class="voz">Caminhando pelo mundo<br />
-Alegria levarei<br />
-E no irmão que encontrar<br />
-O amor só deixarei</div>
-              <div class="voz">Eu levarei<br />
-Só alegria<br />
-Que eu encontrar<br />
-Só deixarei</div>
+<div class="duas-vozes alinhadas">
+              <div class="voz-row">
+                <div class="voz">Caminhando pelo mundo</div>
+                <div class="voz">Eu levarei</div>
+              </div>
+              <div class="voz-row">
+                <div class="voz">Alegria levarei</div>
+                <div class="voz">Só alegria</div>
+              </div>
+              <div class="voz-row">
+                <div class="voz">E no irmão que encontrar</div>
+                <div class="voz">Que eu encontrar</div>
+              </div>
+              <div class="voz-row">
+                <div class="voz">O amor só deixarei</div>
+                <div class="voz">Só deixarei</div>
+              </div>
             </div>
 <br />
-<div class="duas-vozes">
-              <div class="voz"><strong>Somente amar</strong><br />
-<strong>Não mais pensar</strong><br />
-<strong>Naquilo que o tempo já levou</strong><br />
-<strong>Lançar-se então</strong><br />
-<strong>Só no amor</strong><br />
-<strong>Que dá sem nada esperar</strong></div>
-              <div class="voz"><strong>Não mais pensar</strong><br />
-<strong>Somente amar</strong><br />
-<strong>Que o tempo já levou</strong><br />
-<strong>Só no amor</strong><br />
-<strong>Lançar-se então</strong><br />
-<strong>Que dá sem esperar</strong></div>
+<div class="duas-vozes alinhadas">
+              <div class="voz-row">
+                <div class="voz"><strong>Somente amar</strong></div>
+                <div class="voz"><strong>Não mais pensar</strong></div>
+              </div>
+              <div class="voz-row">
+                <div class="voz"><strong>Não mais pensar</strong></div>
+                <div class="voz"><strong>Somente amar</strong></div>
+              </div>
+              <div class="voz-row">
+                <div class="voz"><strong>Naquilo que o tempo já levou</strong></div>
+                <div class="voz"><strong>Que o tempo já levou</strong></div>
+              </div>
+              <div class="voz-row">
+                <div class="voz"><strong>Lançar-se então</strong></div>
+                <div class="voz"><strong>Só no amor</strong></div>
+              </div>
+              <div class="voz-row">
+                <div class="voz"><strong>Só no amor</strong></div>
+                <div class="voz"><strong>Lançar-se então</strong></div>
+              </div>
+              <div class="voz-row">
+                <div class="voz"><strong>Que dá sem nada esperar</strong></div>
+                <div class="voz"><strong>Que dá sem esperar</strong></div>
+              </div>
             </div>
 <br />
-<div class="duas-vozes">
-              <div class="voz">Caminhando pelo mundo<br />
-Alegria levarei<br />
-E no irmão que encontrar<br />
-O amor só deixarei</div>
-              <div class="voz">Eu levarei<br />
-Só alegria<br />
-Que eu encontrar<br />
-Só deixarei</div>
+<div class="duas-vozes alinhadas">
+              <div class="voz-row">
+                <div class="voz">Caminhando pelo mundo</div>
+                <div class="voz">Eu levarei</div>
+              </div>
+              <div class="voz-row">
+                <div class="voz">Alegria levarei</div>
+                <div class="voz">Só alegria</div>
+              </div>
+              <div class="voz-row">
+                <div class="voz">E no irmão que encontrar</div>
+                <div class="voz">Que eu encontrar</div>
+              </div>
+              <div class="voz-row">
+                <div class="voz">O amor só deixarei</div>
+                <div class="voz">Só deixarei</div>
+              </div>
             </div>
         </div>
         <a class="home-btn" href="#topo">⌂</a>
@@ -764,32 +841,48 @@ Ohhh  Ohhh O-O-Ohhhh<br />
 A escolha q você já fez<br />
 É a escolha que faremos nós!!!<br />
 <br />
-<div class="duas-vozes">
-              <div class="voz"><strong>E nessa escolha eu vou viver</strong><br />
-<strong>Esse caminho percorrer</strong><br />
-<strong>Passo a passo,juntos</strong></div>
-              <div class="voz"><strong>Take a chance</strong><br />
-<strong>Make a stand</strong><br />
-<strong>All together</strong></div>
+<div class="duas-vozes alinhadas">
+              <div class="voz-row">
+                <div class="voz"><strong>E nessa escolha eu vou viver</strong></div>
+                <div class="voz"><strong>Take a chance</strong></div>
+              </div>
+              <div class="voz-row">
+                <div class="voz"><strong>Esse caminho percorrer</strong></div>
+                <div class="voz"><strong>Make a stand</strong></div>
+              </div>
+              <div class="voz-row">
+                <div class="voz"><strong>Passo a passo,juntos</strong></div>
+                <div class="voz"><strong>All together</strong></div>
+              </div>
             </div>
 <strong>Sempre unindo mais o mundo</strong><br />
-<div class="duas-vozes">
-              <div class="voz"><strong>Um povo,uma família</strong><br />
-<strong>Que ama, e partilha</strong></div>
-              <div class="voz"><strong>Live the life</strong><br />
-<strong>Make a change</strong></div>
+<div class="duas-vozes alinhadas">
+              <div class="voz-row">
+                <div class="voz"><strong>Um povo,uma família</strong></div>
+                <div class="voz"><strong>Live the life</strong></div>
+              </div>
+              <div class="voz-row">
+                <div class="voz"><strong>Que ama, e partilha</strong></div>
+                <div class="voz"><strong>Make a change</strong></div>
+              </div>
             </div>
 <strong>LOVE,LOVE,LOVE!</strong><br />
 <strong>LOVE,LOVE,LOVE!</strong><br />
 <strong>OUR REVOLUTION!!</strong><br />
 <br />
-<div class="duas-vozes">
-              <div class="voz"><strong>E nessa escolha eu vou viver</strong><br />
-<strong>Esse caminho percorrer</strong><br />
-<strong>Passo a passo,juntos</strong></div>
-              <div class="voz"><strong>Take a chance</strong><br />
-<strong>Make a stand</strong><br />
-<strong>All together</strong></div>
+<div class="duas-vozes alinhadas">
+              <div class="voz-row">
+                <div class="voz"><strong>E nessa escolha eu vou viver</strong></div>
+                <div class="voz"><strong>Take a chance</strong></div>
+              </div>
+              <div class="voz-row">
+                <div class="voz"><strong>Esse caminho percorrer</strong></div>
+                <div class="voz"><strong>Make a stand</strong></div>
+              </div>
+              <div class="voz-row">
+                <div class="voz"><strong>Passo a passo,juntos</strong></div>
+                <div class="voz"><strong>All together</strong></div>
+              </div>
             </div>
 <strong>LOVE,LOVE,LOVE!</strong><br />
         </div>
@@ -873,7 +966,7 @@ Existe a violência, escândalo e tanto mal.<br />
 Onde é que estão os grandes ideais?<br />
 É certo, o mundo hoje vive um tempo escuro;<br />
 Exalta-se o erro e a notícia crua e dura;<br />
-Sucesso e dinheiro se conquista a qualquer preço.<br />
+Sucesso e dinheiro se conquistam a qualquer preço.<br />
 Porém, eu lhes garanto, não existe só esta<br />
 humanidade.<br />
 <br />
@@ -904,9 +997,11 @@ Muita gente morre.<br />
 <strong>Creio, creio nesta humanidade.</strong><br />
 <strong>Creio, creio nesta humanidade.</strong><br />
 <strong>Que abate as fronteiras,</strong><br />
-<div class="duas-vozes">
-              <div class="voz"><strong>Que arrisca a própria vida</strong></div>
-              <div class="voz"><strong>(BIS)</strong></div>
+<div class="duas-vozes alinhadas">
+              <div class="voz-row">
+                <div class="voz"><strong>Que arrisca a própria vida</strong></div>
+                <div class="voz"><strong>(BIS)</strong></div>
+              </div>
             </div>
 <strong>E não usa armas; sabe usar o seu coração.</strong><br />
 <strong>Esta é a humanidade que crê no amor.</strong><br />
