@@ -7,7 +7,7 @@
     <style>
       :root {
         --font-scale: 1;
-        --base-font: 22px;
+        --base-font: clamp(16px, 3.5vw, 22px);
         --primary: #1f2937;
         --secondary: #4b5563;
         --muted: #6b7280;
@@ -113,7 +113,7 @@
         margin: 16px 0 0 0;
         display: flex;
         flex-direction: column;
-        gap: 0;
+        gap: 2.0em;
       }
 
       .indice li {
@@ -195,12 +195,12 @@
 
       .letra {
         white-space: normal;
-        line-height: 1.8;
+        line-height: 1.7;
       }
 
       .estrofe {
         margin-bottom: 1.15em;
-        line-height: 1.8;
+        line-height: 1.7;
       }
 
       .duas-vozes,
@@ -213,7 +213,7 @@
 
       .voz {
         font-size: 1.05em;
-        line-height: 1.8;
+        line-height: 1.7;
       }
 
       .duas-vozes.alinhadas {
@@ -284,10 +284,6 @@
       }
 
       @media (max-width: 768px) {
-        :root {
-          --base-font: 20px;
-        }
-
         .container {
           padding: 16px 10px 80px;
         }
