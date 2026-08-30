@@ -1,762 +1,1289 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cantos para a Missa</title>
-  <style>
-    :root {
-      --font-scale: 1;
-      --base-font: 22px;
-      --primary: #1f2937;
-      --secondary: #4b5563;
-      --muted: #6b7280;
-      --bg: #f5f5f4;
-      --card: #ffffff;
-      --accent: #8b5e3c;
-    }
-
-    * {
-      box-sizing: border-box;
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      padding: 0;
-      background: var(--bg);
-      color: var(--primary);
-      font-family: Georgia, "Times New Roman", serif;
-      line-height: 1.7;
-      font-size: calc(var(--base-font) * var(--font-scale));
-    }
-
-    .container {
-      max-width: 980px;
-      margin: 0 auto;
-      padding: 24px 18px 80px;
-    }
-
-    .font-controls {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: rgba(255,255,255,0.95);
-      border-radius: 50px;
-      padding: 8px 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-      z-index: 999;
-      border: 1px solid rgba(0,0,0,0.05);
-      backdrop-filter: blur(6px);
-    }
-
-    .font-btn {
-      width: 36px;
-      height: 36px;
-      border: none;
-      border-radius: 50%;
-      background: transparent;
-      color: var(--accent);
-      font-size: calc(1.2rem * var(--font-scale));
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .font-btn:hover {
-      background: #f0f0f0;
-    }
-
-    .font-btn.reset {
-      font-size: calc(1rem * var(--font-scale));
-      font-weight: 500;
-      width: auto;
-      border-radius: 30px;
-      padding: 0 12px;
-    }
-
-    h1 {
-      text-align: center;
-      margin-top: 10px;
-      margin-bottom: 32px;
-      font-size: 1.5em;
-      color: var(--primary);
-    }
-
-    .indice {
-      background: var(--card);
-      border-radius: 20px;
-      padding: 30px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-      margin-bottom: 50px;
-    }
-
-    .indice h2 {
-      margin-top: 24px;
-      font-size: 1.1em;
-      border-bottom: 2px solid #d6d3d1;
-      padding-bottom: 8px;
-      color: var(--accent);
-    }
-
-    .indice ul {
-      list-style: none;
-      padding-left: 0;
-    }
-
-    .indice li {
-      margin: 10px 0;
-    }
-
-    .indice a {
-      text-decoration: none;
-      color: var(--primary);
-      transition: color 0.2s ease;
-    }
-
-    .indice a:hover {
-      color: var(--accent);
-    }
-
-    .canto {
-      background: var(--card);
-      border-radius: 20px;
-      padding: 40px 30px 70px;
-      margin-bottom: 40px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-      position: relative;
-    }
-
-    .codigo {
-      font-weight: bold;
-      font-size: 1em;
-      margin-right: 14px;
-      text-decoration: underline;
-    }
-
-    .titulo {
-      font-size: 1.25em;
-      font-weight: bold;
-    }
-
-    .autor {
-      text-align: right;
-      font-style: italic;
-      color: var(--secondary);
-      margin-bottom: 30px;
-      font-size: 0.9em;
-    }
-
-    .letra {
-      white-space: pre-line;
-    }
-
-    .no-pre {
-      white-space: normal;
-    }
-
-    .letra.gloria-layout {
-      white-space: normal;
-    }
-
-    .cancao-gloria {
-      display: flex;
-      flex-direction: column;
-      gap: 28px;
-    }
-
-    .imagem-cancao {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      margin-bottom: 28px;
-    }
-
-    .imagem-cancao svg {
-      width: 100%;
-      max-width: 320px;
-      height: auto;
-      border-radius: 20px;
-      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
-    }
-
-    .estrofe {
-      font-size: 1.08em;
-      line-height: 1.8;
-      margin-bottom: 18px;
-    }
-
-    .duas-vozes,
-    .refrain {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-      margin-bottom: 30px;
-    }
-
-    .voz {
-      font-size: 1.05em;
-      line-height: 1.8;
-    }
-
-    .negrito {
-      font-weight: 700;
-    }
-
-    @media (max-width: 768px) {
-      .duas-vozes,
-      .refrain {
-        grid-template-columns: 1fr;
-        gap: 22px;
-      }
-
-      .estrofe,
-      .voz {
-        font-size: 1rem;
-      }
-    }
-
-    .home-btn {
-      position: absolute;
-      right: 24px;
-      bottom: 20px;
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      background: var(--accent);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      color: white;
-      font-size: 26px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      transition: transform 0.2s ease;
-    }
-
-    .home-btn:hover {
-      transform: scale(1.08);
-    }
-
-    .footer {
-      text-align: center;
-      margin-top: 28px;
-      color: var(--muted);
-      font-size: calc(0.9em * var(--font-scale));
-    }
-
-    @media (max-width: 768px) {
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cantos para a Missa</title>
+    <style>
       :root {
-        --base-font: 20px;
+        --font-scale: 1;
+        --base-font: 22px;
+        --primary: #1f2937;
+        --secondary: #4b5563;
+        --muted: #6b7280;
+        --bg: #f5f5f4;
+        --card: #ffffff;
+        --accent: #ffd479;
+        --accent-dark: #8b5e3c;
+      }
+
+      * {
+        box-sizing: border-box;
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        background: var(--bg);
+        color: var(--primary);
+        font-family: Georgia, "Times New Roman", serif;
+        line-height: 1.7;
+        font-size: calc(var(--base-font) * var(--font-scale));
       }
 
       .container {
-        padding: 16px 10px 80px;
-      }
-
-      .indice,
-      .canto {
-        padding: 24px 18px 70px;
-      }
-
-      h1 {
-        font-size: 1.3em;
-      }
-
-      .indice h2 {
-        font-size: 1em;
-      }
-
-      .titulo {
-        font-size: 1.1em;
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 24px 18px 80px;
       }
 
       .font-controls {
-        top: 12px;
-        right: 12px;
-        padding: 6px 12px;
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 50px;
+        padding: 8px 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        z-index: 999;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        backdrop-filter: blur(6px);
       }
 
       .font-btn {
-        width: 32px;
-        height: 32px;
+        width: 36px;
+        height: 36px;
+        border: none;
+        border-radius: 50%;
+        background: transparent;
+        color: var(--accent);
+        font-size: calc(1.2rem * var(--font-scale));
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
 
-    <div class="font-controls">
-      <button class="font-btn" id="decreaseFont">A-</button>
-      <button class="font-btn reset" id="resetFont">A</button>
-      <button class="font-btn" id="increaseFont">A+</button>
+      .font-btn:hover {
+        background: #f0f0f0;
+      }
+
+      .font-btn.reset {
+        font-size: calc(1rem * var(--font-scale));
+        font-weight: 500;
+        width: auto;
+        border-radius: 30px;
+        padding: 0 12px;
+      }
+
+      h1 {
+        text-align: center;
+        margin-top: 10px;
+        margin-bottom: 32px;
+        font-size: 1.5em;
+        color: var(--primary);
+        padding-top: 70px;
+      }
+
+      .indice {
+        background: var(--card);
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        margin-bottom: 50px;
+      }
+
+      .indice h2 {
+        margin-top: 0;
+        font-size: 1.3em;
+        border-bottom: 2px solid var(--accent-dark);
+        padding-bottom: 8px;
+        color: var(--accent-dark);
+      }
+
+      .indice ul {
+        list-style: none;
+        padding-left: 0;
+        margin: 16px 0 0 0;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .indice li {
+        margin: 0;
+      }
+
+      .indice a {
+        text-decoration: none;
+        color: var(--primary);
+        transition: color 0.2s ease;
+        font-size: 1em;
+        padding: 2px 0;
+        border-bottom: 1px dotted transparent;
+        display: inline-block;
+      }
+
+      .indice a:hover {
+        color: var(--accent-dark);
+        border-bottom-color: var(--accent-dark);
+      }
+
+      .dia {
+        background: var(--card);
+        border-radius: 20px;
+        padding: 30px 30px 20px;
+        margin-bottom: 50px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      }
+
+      .dia-titulo {
+        margin-top: 0;
+        margin-bottom: 30px;
+        font-size: 1.4em;
+        color: var(--accent-dark);
+        border-bottom: 2px solid var(--accent);
+        padding-bottom: 10px;
+        text-align: center;
+      }
+
+      .canto {
+        background: var(--card);
+        border-radius: 20px;
+        padding: 30px 30px 70px;
+        margin-bottom: 30px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        position: relative;
+        border: 1px solid #f0f0f0;
+      }
+
+      .canto-header {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+        gap: 2px;
+      }
+
+      .dia-indicador {
+        font-size: 0.7em;
+        color: var(--muted);
+        text-align: right;
+        display: block;
+        margin-bottom: 2px;
+        letter-spacing: 0.3px;
+      }
+
+      .parte-missa {
+        color: var(--accent);
+        font-weight: bold;
+        font-size: 0.95em;
+        letter-spacing: 0.5px;
+      }
+
+      .titulo {
+        font-size: 1.3em;
+        font-weight: bold;
+        color: var(--primary);
+      }
+
+      .letra {
+        white-space: normal;
+        line-height: 1.8;
+      }
+
+      .estrofe {
+        margin-bottom: 1.15em;
+        line-height: 1.8;
+      }
+
+      .duas-vozes,
+      .refrain {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        margin-bottom: 30px;
+      }
+
+      .voz {
+        font-size: 1.05em;
+        line-height: 1.8;
+      }
+
+      .duas-vozes.alinhadas {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+
+      .voz-row {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 40px;
+        align-items: start;
+      }
+
+      .negrito {
+        font-weight: 700;
+      }
+
+      .italico {
+        font-style: italic;
+      }
+
+      .home-btn {
+        position: absolute;
+        right: 24px;
+        bottom: 20px;
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        background: var(--accent);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        color: white;
+        font-size: 26px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        transition: transform 0.2s ease;
+      }
+
+      .home-btn:hover {
+        transform: scale(1.08);
+      }
+
+      .voltar-indice {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 10px 24px;
+        background: var(--accent-dark);
+        color: white;
+        text-decoration: none;
+        border-radius: 30px;
+        font-size: 0.9em;
+        transition: background 0.2s ease;
+        text-align: center;
+      }
+
+      .voltar-indice:hover {
+        background: #6d4a2e;
+      }
+
+      .footer {
+        text-align: center;
+        margin-top: 28px;
+        color: var(--muted);
+        font-size: calc(0.9em * var(--font-scale));
+      }
+
+      @media (max-width: 768px) {
+        :root {
+          --base-font: 20px;
+        }
+
+        .container {
+          padding: 16px 10px 80px;
+        }
+
+        .indice,
+        .dia {
+          padding: 20px 16px;
+        }
+
+        .canto {
+          padding: 20px 16px 70px;
+        }
+
+        h1 {
+          font-size: 1.3em;
+          padding-top: 80px;
+        }
+
+        .titulo {
+          font-size: 1.1em;
+        }
+
+        .parte-missa {
+          font-size: 0.85em;
+        }
+
+        .dia-titulo {
+          font-size: 1.2em;
+        }
+
+        .duas-vozes,
+        .refrain {
+          grid-template-columns: 1fr;
+          gap: 12px;
+        }
+
+        .voz-row {
+          gap: 12px;
+        }
+
+        .font-controls {
+          top: 12px;
+          right: 12px;
+          padding: 6px 12px;
+        }
+
+        .font-btn {
+          width: 32px;
+          height: 32px;
+        }
+
+        .voltar-indice {
+          display: block;
+          text-align: center;
+        }
+      }
+
+      @media (max-width: 768px) and (orientation: landscape) {
+        .duas-vozes,
+        .refrain {
+          grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+          gap: 24px;
+        }
+
+        .voz-row {
+          gap: 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="font-controls">
+        <button class="font-btn" id="decreaseFont">A-</button>
+        <button class="font-btn reset" id="resetFont">A</button>
+        <button class="font-btn" id="increaseFont">A+</button>
+      </div>
+
+      <h1 id="topo">Cantos para Missa</h1>
+
+      <section class="indice">
+        <h2>ÍNDICE</h2>
+        <ul>
+          <li><a href="#dia-1">1º Dia — Sábado</a></li>
+          <li><a href="#dia-2">2º Dia — Domingo</a></li>
+          <li><a href="#dia-3">3º Dia — Segunda-feira</a></li>
+        </ul>
+      </section>
+
+      <!-- ============================================================ -->
+      <!-- DIA 1 — SÁBADO -->
+      <!-- ============================================================ -->
+
+      <section class="dia" id="dia-1">
+        <h2 class="dia-titulo">1º Dia — Sábado</h2>
+
+        <!-- Venho a Ti (primeira, sem indicador) -->
+        <section class="canto" id="venho-a-ti">
+          <div class="canto-header">
+            <span class="parte-missa">Canto de Entrada</span>
+            <span class="titulo">Venho a Ti</span>
+          </div>
+          <div class="letra">
+            <div class="estrofe">
+              Venho a Ti<br>
+              E sei que não estou mais sozinho<br>
+              Muitas vozes se elevam para o céu<br>
+              Venho a Ti<br>
+              Como aqueles irmãos verdadeiros<br>
+              Que, comigo, dão a Ti seus corações.
+            </div>
+            <div class="estrofe">
+              E Tu, que és o amor,<br>
+              Escuta cada prece de dor, de amor.<br>
+              E Tu, que és a paz,<br>
+              Dá-nos a esperança<br>
+              Em cada momento, Senhor.<br>
+              E abre o Paraíso a nós,<br>
+              E abre o Paraíso a nós.
+            </div>
+          </div>
+          <a class="home-btn" href="#venho-a-ti">⌂</a>
+        </section>
+
+        <!-- Senhor, Piedade — 1 -->
+        <section class="canto" id="senhor-piedade-1">
+          <div class="canto-header">
+            <span class="dia-indicador">1º Dia — Sábado</span>
+            <span class="parte-missa">Ato Penitencial</span>
+            <span class="titulo">Senhor, Piedade</span>
+          </div>
+          <div class="letra">
+            <div class="estrofe">
+              Senhor,<br>
+              Senhor, piedade.<br>
+              Cristo,<br>
+              Cristo, piedade de nós. (BIS)<br>
+              Senhor, piedade,<br>
+              Piedade de nós.
+            </div>
+            <div class="estrofe">
+              Senhor,<br>
+              Senhor, piedade,<br>
+              Piedade de nós.
+            </div>
+          </div>
+          <a class="home-btn" href="#senhor-piedade-1">⌂</a>
+        </section>
+
+        <!-- Aleluia — 1 -->
+        <section class="canto" id="aleluia-1">
+          <div class="canto-header">
+            <span class="dia-indicador">1º Dia — Sábado</span>
+            <span class="parte-missa">Aclamação ao Evangelho</span>
+            <span class="titulo">Aleluia</span>
+          </div>
+          <div class="letra">
+            <div class="estrofe">
+              Aleluia, aleluia,<br>
+              Aleluia, aleluia. (BIS)
+            </div>
+            <div class="estrofe">
+              Aleluia, aleluia,<br>
+              Aleluia, aleluia. (BIS)
+            </div>
+          </div>
+          <a class="home-btn" href="#aleluia-1">⌂</a>
+        </section>
+
+        <!-- Sinais do Teu Amor -->
+        <section class="canto" id="sinais-do-teu-amor">
+          <div class="canto-header">
+            <span class="dia-indicador">1º Dia — Sábado</span>
+            <span class="parte-missa">Ofertório</span>
+            <span class="titulo">Sinais do Teu Amor</span>
+          </div>
+          <div class="letra">
+            <div class="estrofe">
+              Com mil grãos de ouro brilham as espigas.<br>
+              Seu perfume enche o ar de alegria.<br>
+              Esmagados, trabalhados, formarão o pão.<br>
+              Eis Teu dom, Senhor, o pão de cada dia.
+            </div>
+            <div class="estrofe">
+              <strong>Pão e vinho são sinais do Teu amor.</strong><br>
+              <strong>Eis a nossa oferta, é Tua, ó Senhor.</strong><br>
+              <strong>De mil corações farás nascer um povo só,</strong><br>
+              <strong>Um corpo só em Ti.</strong><br>
+              <strong>Teu Filho viverá aqui, pra sempre entre nós.</strong>
+            </div>
+            <div class="estrofe">
+              Sob o sol, mil cachos brilham já maduros.<br>
+              Tempo da colheita, festa em toda a terra.<br>
+              E da tenra uva escorre vinho novo.<br>
+              Eis Teu dom, Senhor, o vinho da alegria.
+            </div>
+            <div class="estrofe">
+              <strong>Pão e vinho são sinais do Teu amor.</strong><br>
+              <strong>Eis a nossa oferta, é Tua, ó Senhor.</strong><br>
+              <strong>De mil corações farás nascer um povo só,</strong><br>
+              <strong>Um corpo só em Ti.</strong><br>
+              <strong>Teu Filho viverá aqui, pra sempre entre nós.</strong>
+            </div>
+          </div>
+          <a class="home-btn" href="#sinais-do-teu-amor">⌂</a>
+        </section>
+
+        <!-- Santo — 1 -->
+        <section class="canto" id="santo-1">
+          <div class="canto-header">
+            <span class="dia-indicador">1º Dia — Sábado</span>
+            <span class="parte-missa">Santo</span>
+            <span class="titulo">Santo</span>
+          </div>
+          <div class="letra">
+            <div class="estrofe">
+              <strong>Santo, santo, santo é o Senhor Deus do universo.</strong><br>
+              <strong>Santo, santo, os céus e a terra resplandecem toda a Sua glória.</strong>
+            </div>
+            <div class="estrofe">
+              Hosana no alto dos céus,<br>
+              Hosana no alto dos céus.
+            </div>
+            <div class="estrofe">
+              <strong>Santo, santo, santo é o Senhor Deus do universo.</strong><br>
+              <strong>Santo, santo, os céus e a terra resplandecem toda a Sua glória.</strong>
+            </div>
+            <div class="estrofe">
+              Bendito é aquele que vem em nome do Senhor.
+            </div>
+            <div class="estrofe">
+              Hosana no alto dos céus,<br>
+              Hosana no alto dos céus.
+            </div>
+            <div class="estrofe">
+              Santo, santo, santo.
+            </div>
+          </div>
+          <a class="home-btn" href="#santo-1">⌂</a>
+        </section>
+
+        <!-- A Caridade -->
+        <section class="canto" id="a-caridade">
+          <div class="canto-header">
+            <span class="dia-indicador">1º Dia — Sábado</span>
+            <span class="parte-missa">Comunhão</span>
+            <span class="titulo">A Caridade</span>
+          </div>
+          <div class="letra">
+            <div class="estrofe">
+              Se eu falasse todas as línguas da terra,<br>
+              Mas o amor não tivesse, seria um bronze que ecoa,<br>
+              Um címbalo que soa.<br>
+              E se tivesse a profecia, conhecesse todas as ciências,<br>
+              Possuísse a fé que transportasse montanhas,<br>
+              Mas o amor não tivesse,
+            </div>
+            <div class="estrofe">
+              Seria um nada,<br>
+              Porque o homem nada vale<br>
+              Se não ama.
+            </div>
+            <div class="estrofe">
+              Distribuísse entre muitos os meus bens<br>
+              E o meu corpo desse para as chamas,<br>
+              Mas se o amor não tivesse, nada seria.
+            </div>
+            <div class="estrofe">
+              Passarão as profecias, e também todas as línguas.<br>
+              A ciência um dia acabará, mas o amor nunca passará,<br>
+              Porque tudo crê e tudo espera, tudo cobre, tudo sofre. (BIS)<br>
+              O próprio bem não procura, mas vibra só com a verdade.
+            </div>
+          </div>
+          <a class="home-btn" href="#a-caridade">⌂</a>
+        </section>
+
+        <!-- Falar Contigo — 1 -->
+        <section class="canto" id="falar-contigo-1">
+          <div class="canto-header">
+            <span class="dia-indicador">1º Dia — Sábado</span>
+            <span class="parte-missa">Ação de Graças</span>
+            <span class="titulo">Falar Contigo</span>
+          </div>
+          <div class="letra">
+            <div class="estrofe">
+              Falar contigo, estar contigo,<br>
+              Queres viver em cada homem<br>
+              Até que um dia seremos<br>
+              Todos um em Ti.
+            </div>
+            <div class="estrofe">
+              Tu que és Deus,<br>
+              Desceste do céu para nós.<br>
+              Acolhe e oferece ao Pai<br>
+              O nosso amor por Ti.
+            </div>
+          </div>
+          <a class="home-btn" href="#falar-contigo-1">⌂</a>
+        </section>
+
+        <!-- Magnificat -->
+        <section class="canto" id="magnificat">
+          <div class="canto-header">
+            <span class="dia-indicador">1º Dia — Sábado</span>
+            <span class="parte-missa">Canto Final</span>
+            <span class="titulo">Magnificat</span>
+          </div>
+          <div class="letra">
+            <div class="estrofe">
+              <strong>Minh'alma canta, canta a grandeza do Senhor.</strong><br>
+              <strong>O meu espírito exulta de alegria</strong><br>
+              <strong>Em Deus, meu Salvador.</strong>
+            </div>
+            <div class="estrofe">
+              Porque voltou Seu olhar<br>
+              Para a humildade de Sua serva. (BIS)
+            </div>
+            <div class="estrofe">
+              E doravante todos os povos me chamarão feliz,<br>
+              Me chamarão feliz, me chamarão feliz.
+            </div>
+            <div class="estrofe">
+              <strong>Minh'alma canta, canta a grandeza do Senhor.</strong><br>
+              <strong>O meu espírito exulta de alegria</strong><br>
+              <strong>Em Deus, meu Salvador.</strong>
+            </div>
+            <div class="estrofe">
+              Derrubou do trono os poderosos<br>
+              E elevou os humildes.<br>
+              Encheu de bens os famintos<br>
+              E despediu os ricos com as mãos vazias.<br>
+              Minh'alma canta a grandeza do Senhor.<br>
+              O meu espírito exulta de alegria<br>
+              Em Deus, meu Salvador.
+            </div>
+            <div class="estrofe">
+              <strong>Minh'alma canta, canta a grandeza do Senhor.</strong><br>
+              <strong>O meu espírito exulta de alegria</strong><br>
+              <strong>Em Deus, meu Salvador.</strong>
+            </div>
+          </div>
+          <a class="home-btn" href="#magnificat">⌂</a>
+        </section>
+
+        <a class="voltar-indice" href="#topo">↑ Voltar ao índice</a>
+      </section>
+
+      <!-- ============================================================ -->
+      <!-- DIA 2 — DOMINGO -->
+      <!-- ============================================================ -->
+
+      <section class="dia" id="dia-2">
+        <h2 class="dia-titulo">2º Dia — Domingo</h2>
+
+        <!-- É Inconcebível (primeira, sem indicador) -->
+        <section class="canto" id="e-inconcebivel">
+          <div class="canto-header">
+            <span class="parte-missa">Canto de Entrada</span>
+            <span class="titulo">É Inconcebível</span>
+          </div>
+          <div class="letra">
+            <div class="estrofe">
+              Vou à Igreja de manhã<br>
+              E Te encontro, estás ali.<br>
+              Corro à Igreja quando Te amo<br>
+              E Te encontro ainda ali.<br>
+              Vou à Igreja por acaso ou costume<br>
+              E Te encontro a esperar...<br>
+              E Tu sempre me repetes<br>
+              No silêncio uma palavra: devo amar.
+            </div>
+            <div class="estrofe">
+              É inconcebível o silêncio<br>
+              Onde falas Tu.<br>
+              No silêncio ouço palpitar<br>
+              Todo Teu amor.
+            </div>
+            <div class="estrofe">
+              Lá está a espera e a vida,<br>
+              Lá o nosso coração repousa,<br>
+              Pra recomeçar o seu caminho,<br>
+              Pra recomeçar o seu caminho.
+            </div>
+          </div>
+          <a class="home-btn" href="#e-inconcebivel">⌂</a>
+        </section>
+
+        <!-- Senhor, Piedade — 2 -->
+        <section class="canto" id="senhor-piedade-2">
+          <div class="canto-header">
+            <span class="dia-indicador">2º Dia — Domingo</span>
+            <span class="parte-missa">Ato Penitencial</span>
+            <span class="titulo">Senhor, Piedade</span>
+          </div>
+          <div class="letra">
+            <div class="estrofe">
+              Senhor,<br>
+              Senhor, piedade.<br>
+              Cristo,<br>
+              Cristo, piedade de nós.<br>
+              Senhor, piedade,<br>
+              Piedade de nós. (BIS)
+            </div>
+            <div class="estrofe">
+              Senhor,<br>
+              Senhor, piedade,<br>
+              Piedade de nós.
+            </div>
+          </div>
+          <a class="home-btn" href="#senhor-piedade-2">⌂</a>
+        </section>
+
+        <!-- Aleluia — 2 -->
+        <section class="canto" id="aleluia-2">
+          <div class="canto-header">
+            <span class="dia-indicador">2º Dia — Domingo</span>
+            <span class="parte-missa">Aclamação ao Evangelho</span>
+            <span class="titulo">Aleluia</span>
+          </div>
+          <div class="letra">
+            <div class="estrofe">
+              Aleluia, aleluia,<br>
+              Aleluia, aleluia.
+            </div>
+            <div class="estrofe">
+              Quem se alimenta da Tua palavra<br>
+              Traz o céu sobre a Terra.
+            </div>
+            <div class="estrofe">
+              Aleluia, aleluia,<br>
+              Aleluia, aleluia,<br>
+              Aleluia.
+            </div>
+          </div>
+          <a class="home-btn" href="#aleluia-2">⌂</a>
+        </section>
+
+        <!-- A Semente do Teu Campo -->
+        <section class="canto" id="a-semente-do-teu-campo">
+          <div class="canto-header">
+            <span class="dia-indicador">2º Dia — Domingo</span>
+            <span class="parte-missa">Ofertório</span>
+            <span class="titulo">A Semente do Teu Campo</span>
+          </div>
+          <div class="letra">
+            <div class="estrofe">
+              A cada vez que Tu nos doas<br>
+              A palavra que traz a luz,<br>
+              Nós ofertamos a paz.<br>
+              A cada vez que Tu nos nutres<br>
+              Com o Teu Pão da vida,<br>
+              Nós saciamos a fome.<br>
+              A cada vez que o Teu vinho<br>
+              Vem trazer alegria,<br>
+              Nós acolhemos feridas.
+            </div>
+            <div class="estrofe">
+              <strong>Damos a Ti</strong><br>
+              <strong>Sinceramente, a vida</strong><br>
+              <strong>E bendizemos a Tua paz entre nós.</strong><br>
+              <strong>Seremos eco do Teu canto,</strong><br>
+              <strong>A semente do Teu campo,</strong><br>
+              <strong>Caminho para o Teu perdão,</strong><br>
+              <strong>Caminho para o Teu perdão.</strong>
+            </div>
+            <div class="estrofe">
+              Não faz tremer a nossa fé<br>
+              A incerteza do coração<br>
+              Quando nos falas, Senhor.<br>
+              Não nos separa do amor<br>
+              A potência de todo mal<br>
+              Quando estás entre nós.<br>
+              E nem a morte nos separa<br>
+              Da esperança do eterno<br>
+              Quando Tua mão nos sustenta.
+            </div>
+            <div class="estrofe">
+              <strong>Damos a Ti</strong><br>
+              <strong>Sinceramente, a vida</strong><br>
+              <strong>E bendizemos a Tua paz entre nós.</strong><br>
+              <strong>Seremos eco do Teu canto,</strong><br>
+              <strong>A semente do Teu campo,</strong><br>
+              <strong>Caminho para o Teu perdão,</strong><br>
+              <strong>Caminho para o Teu perdão.</strong>
+            </div>
+          </div>
+          <a class="home-btn" href="#a-semente-do-teu-campo">⌂</a>
+        </section>
+
+        <!-- Verbum Panis -->
+        <section class="canto" id="verbum-panis">
+          <div class="canto-header">
+            <span class="dia-indicador">2º Dia — Domingo</span>
+            <span class="parte-missa">Comunhão</span>
+            <span class="titulo">Verbum Panis</span>
+          </div>
+          <div class="letra">
+            <div class="estrofe">
+              Desde o princípio,<br>
+              Antes mesmo que a Terra começasse a existir,<br>
+              O Verbo estava junto a Deus.<br>
+              Veio ao mundo<br>
+              E, pra não abandonar-nos nesta viagem,<br>
+              Nos deixou todo a Si mesmo como Pão.
+            </div>
+            <div class="estrofe">
+              <span class="italico">Verbum caro factum est</span><br>
+              <span class="italico">Verbum panis factum est</span><br>
+              <span class="italico">Verbum caro factum est</span><br>
+              <span class="italico">Verbum panis factum est</span>
+            </div>
+            <div class="estrofe">
+              <strong>E, aqui, partes o Teu pão em meio a nós.</strong><br>
+              <strong>Todo aquele que comer, não terá mais fome.</strong><br>
+              <strong>Aqui, vive Tua Igreja em torno a Ti,</strong><br>
+              <strong>Onde se encontrará a morada eterna.</strong>
+            </div>
+            <div class="estrofe">
+              <span class="italico">Verbum caro factum est</span><br>
+              <span class="italico">Verbum panis factum est</span><br>
+              <span class="italico">Verbum caro factum est</span><br>
+              <span class="italico">Verbum panis...</span>
+            </div>
+            <div class="estrofe">
+              Desde o princípio,<br>
+              Quando o universo foi criado da escuridão,<br>
+              O Verbo estava junto a Deus.<br>
+              Veio ao mundo,<br>
+              Rico em misericórdia, Deus mandou o Filho Seu,<br>
+              Todo a Si mesmo como Pão.
+            </div>
+            <div class="estrofe">
+              <span class="italico">Verbum caro factum est</span><br>
+              <span class="italico">Verbum panis factum est</span><br>
+              <span class="italico">Verbum caro factum est</span><br>
+              <span class="italico">Verbum panis factum est</span>
+            </div>
+            <div class="estrofe">
+              <strong>E, aqui, partes o Teu pão em meio a nós.</strong><br>
+              <strong>Todo aquele que comer, não terá mais fome.</strong><br>
+              <strong>Aqui, vive Tua Igreja em torno a Ti,</strong><br>
+              <strong>Onde se encontrará a morada eterna.</strong>
+            </div>
+            <div class="estrofe">
+              <span class="italico">Verbum caro factum est</span><br>
+              <span class="italico">Verbum panis factum est</span><br>
+              <span class="italico">Verbum caro factum est</span><br>
+              <span class="italico">Verbum panis factum est</span>
+            </div>
+          </div>
+          <a class="home-btn" href="#verbum-panis">⌂</a>
+        </section>
+
+        <!-- A Tua Vontade -->
+        <section class="canto" id="a-tua-vontade">
+          <div class="canto-header">
+            <span class="dia-indicador">2º Dia — Domingo</span>
+            <span class="parte-missa">Ação de Graças</span>
+            <span class="titulo">A Tua Vontade</span>
+          </div>
+          <div class="letra">
+            <div class="estrofe">
+              Faze de mim como folha ao vento,<br>
+              Que se deixa sempre transportar,<br>
+              Mesmo se não sabe,<br>
+              Não sabe nunca onde pousará.
+            </div>
+            <div class="estrofe">
+              Faze de mim como as águas do mar,<br>
+              Que se deixam sempre ondejar,<br>
+              Sem nunca saber, sem saber quando retornarão.
+            </div>
+            <div class="estrofe">
+              Porque, ó Deus, o vento e o mar,<br>
+              Ou mesmo o Sol, é Teu amor!<br>
+              Porque, ó Deus, partir ou voltar,<br>
+              Sofrer ou cantar, é sempre amor!
+            </div>
+            <div class="estrofe">
+              Faze de mim como neve ao Sol,<br>
+              Que se deixa acariciar sem temor,<br>
+              Sabendo que depois,<br>
+              Depois ao Sol se dissolverá.
+            </div>
+            <div class="estrofe">
+              Porque, ó Deus, a Tua vontade<br>
+              É sempre amor, és sempre Tu!<br>
+              Porque, ó Deus, a Tua vontade<br>
+              É sempre amor, és sempre Tu!
+            </div>
+          </div>
+          <a class="home-btn" href="#a-tua-vontade">⌂</a>
+        </section>
+
+        <!-- Um Caminho para Todos -->
+        <section class="canto" id="um-caminho-para-todos">
+          <div class="canto-header">
+            <span class="dia-indicador">2º Dia — Domingo</span>
+            <span class="parte-missa">Canto Final</span>
+            <span class="titulo">Um Caminho para Todos</span>
+          </div>
+          <div class="letra">
+            <div class="estrofe">
+              No Teu sim, acolhe também hoje o nosso sim.<br>
+              Na caridade, firma sempre mais o nosso ser.<br>
+              Com Teu amor, ao mundo ofereceste o Homem-Deus.<br>
+              Com nosso amor, Ele nascerá em meio a nós.
+            </div>
+            <div class="estrofe">
+              <strong>Maria, Tu abres nosso caminho,</strong><br>
+              <strong>Estrada de Sol, poema de amor. (BIS)</strong><br>
+              <strong>Ao Deus nosso Pai.</strong>
+            </div>
+            <div class="estrofe">
+              Aos pés da cruz, sofreste com Teu Filho a dor maior.<br>
+              Naquele instante, Deus Te fez mãe da humanidade.<br>
+              A Tua vida invade de luz nosso viver.<br>
+              Caminhar contigo anula toda a nossa escuridão.
+            </div>
+            <div class="estrofe">
+              <strong>Maria, Tu abres nosso caminho,</strong><br>
+              <strong>Estrada de Sol, poema de amor. (BIS)</strong><br>
+              <strong>Ao Deus nosso Pai.</strong>
+            </div>
+            <div class="estrofe">
+              Ao Deus nosso Pai.
+            </div>
+          </div>
+          <a class="home-btn" href="#um-caminho-para-todos">⌂</a>
+        </section>
+
+        <a class="voltar-indice" href="#topo">↑ Voltar ao índice</a>
+      </section>
+
+      <!-- ============================================================ -->
+      <!-- DIA 3 — SEGUNDA-FEIRA -->
+      <!-- ============================================================ -->
+
+      <section class="dia" id="dia-3">
+        <h2 class="dia-titulo">3º Dia — Segunda-feira</h2>
+
+        <!-- Cantai a Deus (primeira, sem indicador) -->
+        <section class="canto" id="cantai-a-deus-2">
+          <div class="canto-header">
+            <span class="parte-missa">Canto de Entrada</span>
+            <span class="titulo">Cantai a Deus</span>
+          </div>
+          <div class="letra">
+            <div class="estrofe">
+              Ô, ô, ô, ô, ô.
+            </div>
+            <div class="estrofe">
+              Cantai a Deus,<br>
+              Céus imensos, infinitos.<br>
+              Cantai a Deus,<br>
+              Todos os Seus anjos.<br>
+              Cantai a Deus,<br>
+              Santos do Seu reino.<br>
+              Cantai e louvai a Deus:<br>
+              Deus vos ama.<br>
+              Cantai e louvai a Deus:<br>
+              Deus está em vós!
+            </div>
+          </div>
+          <a class="home-btn" href="#cantai-a-deus-2">⌂</a>
+        </section>
+
+        <!-- Senhor, Piedade — 3 -->
+        <section class="canto" id="senhor-piedade-3">
+          <div class="canto-header">
+            <span class="dia-indicador">3º Dia — Segunda-feira</span>
+            <span class="parte-missa">Ato Penitencial</span>
+            <span class="titulo">Senhor, Piedade</span>
+          </div>
+          <div class="letra">
+            <div class="estrofe">
+              Senhor,<br>
+              Senhor, piedade.<br>
+              Cristo,<br>
+              Cristo, piedade de nós.<br>
+              Senhor, piedade,<br>
+              Piedade de nós. (BIS)
+            </div>
+            <div class="estrofe">
+              Senhor,<br>
+              Senhor, piedade,<br>
+              Piedade de nós.
+            </div>
+          </div>
+          <a class="home-btn" href="#senhor-piedade-3">⌂</a>
+        </section>
+
+        <!-- Aleluia — 3 -->
+        <section class="canto" id="aleluia-3">
+          <div class="canto-header">
+            <span class="dia-indicador">3º Dia — Segunda-feira</span>
+            <span class="parte-missa">Aclamação ao Evangelho</span>
+            <span class="titulo">Aleluia</span>
+          </div>
+          <div class="letra">
+            <div class="estrofe">
+              Aleluia, aleluia,<br>
+              Aleluia, aleluia. (BIS)
+            </div>
+            <div class="estrofe">
+              Aleluia, aleluia,<br>
+              Aleluia, aleluia. (BIS)
+            </div>
+          </div>
+          <a class="home-btn" href="#aleluia-3">⌂</a>
+        </section>
+
+        <!-- Abençoa -->
+        <section class="canto" id="abencoa-2">
+          <div class="canto-header">
+            <span class="dia-indicador">3º Dia — Segunda-feira</span>
+            <span class="parte-missa">Ofertório</span>
+            <span class="titulo">Abençoa</span>
+          </div>
+          <div class="letra">
+            <div class="estrofe">
+              Noite e dia, longas madrugadas,<br>
+              E a semente espera.<br>
+              E o milagre antigo e sempre novo<br>
+              Fecunda toda a terra.<br>
+              Do grão morto e pisado, a vida nascerá.<br>
+              Na mesa, eis o pão.
+            </div>
+            <div class="estrofe">
+              <strong>Abençoa, ó Senhor,</strong><br>
+              <strong>Nossa oferta, dai-nos Tua paz</strong><br>
+              <strong>E a unidade no Teu corpo</strong><br>
+              <strong>Que se consuma também por nós.</strong>
+            </div>
+            <div class="estrofe">
+              Nossas vinhas, com o sol aberto,<br>
+              Já estão florindo.<br>
+              E o orvalho, no silêncio, toca os primeiros frutos.<br>
+              E as cores são mais vivas,<br>
+              Acendem os grãos maduros.<br>
+              Na mesa, eis o vinho.
+            </div>
+            <div class="estrofe">
+              <strong>Abençoa, ó Senhor,</strong><br>
+              <strong>Nossa oferta, dai-nos Tua paz</strong><br>
+              <strong>E a unidade no Teu sangue</strong><br>
+              <strong>Que se consuma também por nós.</strong>
+            </div>
+          </div>
+          <a class="home-btn" href="#abencoa-2">⌂</a>
+        </section>
+
+        <!-- Santo — 3 -->
+        <section class="canto" id="santo-3">
+          <div class="canto-header">
+            <span class="dia-indicador">3º Dia — Segunda-feira</span>
+            <span class="parte-missa">Santo</span>
+            <span class="titulo">Santo</span>
+          </div>
+          <div class="letra">
+            <div class="estrofe">
+              Santo, Santo, Santo,<br>
+              Deus do universo.<br>
+              A terra e os céus proclamam<br>
+              A Tua imensa glória. Hosana!
+            </div>
+            <div class="estrofe">
+              <strong>Hosana! Hosana! Hosana!</strong><br>
+              <strong>No alto dos céus, hosana!</strong><br>
+              <strong>Hosana! Hosana! Hosana!</strong><br>
+              <strong>No alto dos céus.</strong>
+            </div>
+            <div class="estrofe">
+              Bendito aquele que<br>
+              Vem em Teu nome.<br>
+              Bendito aquele que<br>
+              Vem em Teu nome, hosana!
+            </div>
+            <div class="estrofe">
+              <strong>Hosana! Hosana! Hosana!</strong><br>
+              <strong>No alto dos céus, hosana!</strong><br>
+              <strong>Hosana! Hosana! Hosana!</strong><br>
+              <strong>No alto dos céus.</strong>
+            </div>
+            <div class="estrofe">
+              Santo, Santo, Santo,<br>
+              Deus do universo, hosana!
+            </div>
+            <div class="estrofe">
+              <strong>Hosana! Hosana! Hosana!</strong><br>
+              <strong>No alto dos céus, hosana!</strong><br>
+              <strong>Hosana! Hosana! Hosana!</strong><br>
+              <strong>No alto dos céus.</strong>
+            </div>
+          </div>
+          <a class="home-btn" href="#santo-3">⌂</a>
+        </section>
+
+        <!-- Pra Que Todos Sejam Um -->
+        <section class="canto" id="pra-que-todos-sejam-um">
+          <div class="canto-header">
+            <span class="dia-indicador">3º Dia — Segunda-feira</span>
+            <span class="parte-missa">Comunhão</span>
+            <span class="titulo">Pra Que Todos Sejam Um</span>
+          </div>
+          <div class="letra">
+            <div class="estrofe">
+              <strong>Rogo a Ti, ó meu Pai,</strong><br>
+              <strong>Que eles sejam todos um,</strong><br>
+              <strong>Uma coisa só em nós,</strong><br>
+              <strong>Como Tu estás em mim.</strong><br>
+              <strong>Rogo a Ti, ó meu Pai,</strong><br>
+              <strong>Que eles sejam todos um,</strong><br>
+              <strong>Uma coisa só em nós,</strong><br>
+              <strong>Como eu estou em Ti.</strong>
+            </div>
+            <div class="estrofe">
+              És o único Deus vivo,<br>
+              Verdade eterna és Tu.<br>
+              Nesta terra, como no céu,<br>
+              Só o amor a lei será.
+            </div>
+            <div class="estrofe">
+              <strong>Rogo a Ti, ó meu Pai,</strong><br>
+              <strong>Que eles sejam todos um,</strong><br>
+              <strong>Uma coisa só em nós,</strong><br>
+              <strong>Como Tu estás em mim.</strong><br>
+              <strong>Rogo a Ti, ó meu Pai,</strong><br>
+              <strong>Que eles sejam todos um,</strong><br>
+              <strong>Uma coisa só em nós,</strong><br>
+              <strong>Como eu estou em Ti.</strong>
+            </div>
+            <div class="estrofe">
+              E a glória que Tu me deste<br>
+              E que no mundo não há<br>
+              Entre os homens foi revelada,<br>
+              E eis que voltarei a Ti.
+            </div>
+            <div class="estrofe">
+              <strong>Rogo a Ti, ó meu Pai,</strong><br>
+              <strong>Que eles sejam todos um,</strong><br>
+              <strong>Uma coisa só em nós,</strong><br>
+              <strong>Como Tu estás em mim.</strong><br>
+              <strong>Rogo a Ti, ó meu Pai,</strong><br>
+              <strong>Que eles sejam todos um,</strong><br>
+              <strong>Uma coisa só em nós,</strong><br>
+              <strong>Como eu estou em Ti.</strong>
+            </div>
+            <div class="estrofe">
+              Pai, guarda-os em Teu nome,<br>
+              Que é caridade, amor,<br>
+              E que sejam, assim, perfeitos<br>
+              Na unidade, em nós.
+            </div>
+            <div class="estrofe">
+              <strong>Rogo a Ti, ó meu Pai,</strong><br>
+              <strong>Que eles sejam todos um,</strong><br>
+              <strong>Uma coisa só em nós,</strong><br>
+              <strong>Como Tu estás em mim.</strong><br>
+              <strong>Rogo a Ti, ó meu Pai,</strong><br>
+              <strong>Que eles sejam todos um,</strong><br>
+              <strong>Uma coisa só em nós,</strong><br>
+              <strong>Como eu estou em Ti.</strong>
+            </div>
+          </div>
+          <a class="home-btn" href="#pra-que-todos-sejam-um">⌂</a>
+        </section>
+
+        <!-- Falar Contigo — 3 -->
+        <section class="canto" id="falar-contigo-3">
+          <div class="canto-header">
+            <span class="dia-indicador">3º Dia — Segunda-feira</span>
+            <span class="parte-missa">Ação de Graças</span>
+            <span class="titulo">Falar Contigo</span>
+          </div>
+          <div class="letra">
+            <div class="estrofe">
+              Falar contigo, estar contigo,<br>
+              Queres viver em cada homem<br>
+              Até que um dia seremos<br>
+              Todos um em Ti.
+            </div>
+            <div class="estrofe">
+              Tu que és Deus,<br>
+              Desceste do céu para nós.<br>
+              Acolhe e oferece ao Pai<br>
+              O nosso amor por Ti.
+            </div>
+          </div>
+          <a class="home-btn" href="#falar-contigo-3">⌂</a>
+        </section>
+
+        <!-- Maria, Queremos Amar-Te -->
+        <section class="canto" id="maria-queremos-amar-te">
+          <div class="canto-header">
+            <span class="dia-indicador">3º Dia — Segunda-feira</span>
+            <span class="parte-missa">Canto Final</span>
+            <span class="titulo">Maria, Queremos Amar-Te</span>
+          </div>
+          <div class="letra">
+            <div class="estrofe">
+              <strong>Maria, Maria,</strong><br>
+              <strong>Maria, Maria.</strong>
+            </div>
+            <div class="estrofe">
+              <strong>Somos filhos teus, queremos amar-te</strong><br>
+              <strong>Como ninguém jamais te amou.</strong><br>
+              <strong>Somos filhos teus, queremos amar-te</strong><br>
+              <strong>Como ninguém jamais te amou.</strong>
+            </div>
+            <div class="estrofe">
+              Contigo, na tua estrada,<br>
+              O nosso caminho é seguro.<br>
+              Contigo, os passos conduzem para a meta.<br>
+              E, mesmo se chega a noite,<br>
+              Tu estás junto a nós,<br>
+              Transformas todo temor em certeza.<br>
+              Ave Maria!
+            </div>
+            <div class="estrofe">
+              <strong>Maria, Maria,</strong><br>
+              <strong>Maria, Maria.</strong>
+            </div>
+            <div class="estrofe">
+              <strong>Somos filhos teus, queremos amar-te</strong><br>
+              <strong>Como ninguém jamais te amou.</strong><br>
+              <strong>Somos filhos teus, queremos amar-te</strong><br>
+              <strong>Como ninguém jamais te amou.</strong>
+            </div>
+            <div class="estrofe">
+              Queremos ser sobre a terra<br>
+              O manto do teu amor,<br>
+              Que faz da humanidade uma família.<br>
+              A tua presença no mundo<br>
+              Retorne por meio de nós,<br>
+              Como um canto de paz infinita.<br>
+              Ave Maria!
+            </div>
+            <div class="estrofe">
+              <strong>Maria, Maria,</strong><br>
+              <strong>Maria, Maria.</strong>
+            </div>
+            <div class="estrofe">
+              <strong>Somos filhos teus, queremos amar-te</strong><br>
+              <strong>Como ninguém jamais te amou.</strong><br>
+              <strong>Somos filhos teus, queremos amar-te</strong><br>
+              <strong>Como ninguém jamais te amou.</strong>
+            </div>
+          </div>
+          <a class="home-btn" href="#maria-queremos-amar-te">⌂</a>
+        </section>
+
+        <a class="voltar-indice" href="#topo">↑ Voltar ao índice</a>
+      </section>
+
+      <div class="footer">Mariápolis 2026 • Movimento dos Focolares</div>
     </div>
 
-    <h1 id="topo">Cantos para a Missa</h1>
+    <script>
+      const increaseBtn = document.getElementById("increaseFont");
+      const decreaseBtn = document.getElementById("decreaseFont");
+      const resetBtn = document.getElementById("resetFont");
 
-    <section class="indice">
-      <h2>CÂNTICOS DE ENTRADA</h2>
-      <ul>
-        <li><a href="#cantai-a-deus">Cantai a Deus</a></li>
-        <li><a href="#cantemos-ao-senhor">Cantemos ao Senhor</a></li>
-      </ul>
+      let scale = 1;
 
-      <h2>CÂNTICOS PENITENCIAIS</h2>
-      <ul>
-        <li><a href="#senhor-piedade">Senhor, piedade</a></li>
-        <li><a href="#senhor-que-vieste">Senhor que vieste salvar</a></li>
-      </ul>
-
-      <h2>CÂNTICOS DE GLÓRIA</h2>
-      <ul>
-        <li><a href="#gloria-no-alto">Glória no alto dos céus</a></li>
-      </ul>
-
-      <h2>ACLAMAÇÃO DO EVANGELHO</h2>
-      <ul>
-        <li><a href="#aleluia">Aleluia – I</a></li>
-      </ul>
-
-      <h2>CÂNTICOS DE OFERENDAS</h2>
-      <ul>
-        <li><a href="#abencoa">Abençoa</a></li>
-        <li><a href="#acolhe">Acolhe a nossa oferta</a></li>
-      </ul>
-
-      <h2>CÂNTICOS PARA O SANTO</h2>
-      <ul>
-        <li><a href="#santo">Santo – I</a></li>
-      </ul>
-
-      <h2>COMUNHÃO</h2>
-      <ul>
-        <li><a href="#atua-vontade">A tua vontade</a></li>
-        <li><a href="#fogo-vivo">Fogo vivo</a></li>
-      </ul>
-
-      <h2>CÂNTICOS FINAIS</h2>
-      <ul>
-        <li><a href="#obrigado">Obrigado</a></li>
-        <li><a href="#maria">Maria</a></li>
-      </ul>
-    </section>
-
-    <section class="canto" id="cantai-a-deus">
-      <div>
-        <span class="titulo">Cantai a Deus</span>
-      </div>
-      <div class="autor">(Gen Rosso — Benedikt Enderle / Valerio Ciprì)</div>
-      <div class="letra">Ô, ô, ô, ô, ô.
-
-Cantai a Deus,
-Céus imensos, infinitos.
-Cantai a Deus,
-Todos os seus anjos.
-Cantai a Deus,
-Santos do seu reino.
-Cantai e louvai a Deus:
-Deus vos ama.
-Cantai e louvai a Deus:
-Deus está em vós!</div>
-      <a class="home-btn" href="#topo">⌂</a>
-    </section>
-
-    <section class="canto" id="cantemos-ao-senhor">
-      <div>
-        <span class="titulo">Cantemos ao Senhor</span>
-      </div>
-      <div class="autor">(Gen Verde — Marie Thérèse Henderson)</div>
-      <div class="letra"><strong>Cantemos ao senhor
-um cântico novo,
-Cantemos a glória do seu nome:
-grande é o amor, a sua bondade.
-Cantemos a ele pra sempre.</strong>
-
-É luz para nós, nunca nos abandona.
-À sua sombra nós repousamos.
-Renova a face da Terra,
-Transforma tristeza em alegria,
-Nos guia com a sua graça
-E nos chama a habitar em sua casa.</div>
-      <a class="home-btn" href="#topo">⌂</a>
-    </section>
-
-    <section class="canto" id="senhor-piedade">
-      <div>
-        <span class="titulo">Senhor, piedade</span>
-      </div>
-      <div class="autor">(Gen Rosso — Benedikt Enderle / Valerio Ciprì)</div>
-      <div class="letra">Senhor,
-Senhor, piedade.
-Cristo,
-Cristo, piedade de nós. (BIS)
-
-Senhor, piedade,
-piedade de nós.
-Senhor,
-Senhor, piedade,
-piedade de nós.</div>
-      <a class="home-btn" href="#topo">⌂</a>
-    </section>
-
-    <section class="canto" id="senhor-que-vieste">
-      <div>
-        <span class="titulo">Senhor que vieste salvar</span>
-      </div>
-      <div class="autor">(Pe. José Cândido da Silva)</div>
-      <div class="letra">1. Senhor que vieste salvar
-Os corações arrependidos
-<strong>Piedade, piedade, piedade de nós (2x)</strong>
-
-2. Ó Cristo, que vieste chamar
-Os pecadores humilhados
-
-3. Senhor que intercedei por nós
-Junto a Deus Pai, que nos perdoa</div>
-      <a class="home-btn" href="#topo">⌂</a>
-    </section>
-
-    <section class="canto" id="gloria-no-alto">
-      <div>
-        <span class="titulo">Glória no alto dos céus</span>
-      </div>
-      <div class="autor">(Gen Verde — Marie Thérèse Henderson / Jocelyn Belamide)</div>
-      <div class="letra gloria-layout">
-        <div class="cancao-gloria">
-          <div class="estrofe">
-            Glória, glória a Deus.<br>
-            Glória, glória no alto dos céus.<br>
-            Paz na terra aos homens,<br>
-            Amados pelo Pai.<br>
-            Glória!
-          </div>
-
-          <div class="estrofe">
-            Nós te louvamos, nós te bendizemos.<br>
-            Te adoramos, rendemos glória a ti.<br>
-            Nós te damos graças pela tua imensa glória.
-          </div>
-
-          <div class="duas-vozes">
-            <div class="voz negrito">
-              Senhor Deus. Glória.<br>
-              Rei dos Céus. Glória.<br>
-              Deus Pai, Deus onipotente.<br>
-              Glória. Glória.
-            </div>
-            <div class="voz negrito">
-              Senhor Deus,<br>
-              Rei dos Céus. Glória.<br>
-              Deus, Deus Pai.
-            </div>
-          </div>
-
-          <div class="refrain">
-            <div class="voz">
-              Glória, Glória<br>
-              Glória a Deus<br>
-              Glória, glória<br>
-              No alto dos céus.<br>
-              Paz na terra aos<br>
-              Homens amados<br>
-              Pelo Pai.<br>
-              Glória Glória.
-            </div>
-            <div class="voz">
-              No alto dos céus.<br>
-              Paz aqui nesta terra.<br>
-              Paz aos homens,<br>
-              Paz.
-            </div>
-          </div>
-
-          <div class="duas-vozes">
-            <div class="voz negrito">
-              Porque só Tu<br>
-              És o Santo, o Senhor.<br>
-              Só Tu, o Altíssimo,<br>
-              Cristo Jesus,<br>
-              Com o Espírito Santo<br>
-              Na glória de Deus,<br>
-              Deus Pai.
-            </div>
-            <div class="voz negrito">
-              Jesus Cristo,<br>
-              Com o Santo<br>
-              Espírito<br>
-              Na glória,<br>
-              Glória de Deus Pai.
-            </div>
-          </div>
-
-          <div class="refrain">
-            <div class="voz">
-              Glória, Glória<br>
-              Glória a Deus<br>
-              Glória, glória<br>
-              No alto dos céus.<br>
-              Paz na terra aos<br>
-              Homens amados<br>
-              Pelo Pai.<br>
-              Glória Glória.
-            </div>
-            <div class="voz">
-              No alto dos céus.<br>
-              Paz aqui nesta terra.<br>
-              Paz aos homens,<br>
-              Paz.
-            </div>
-          </div>
-        </div>
-      </div>
-      <a class="home-btn" href="#topo">⌂</a>
-    </section>
-
-    <section class="canto" id="aleluia">
-      <div>
-        <span class="titulo">Aleluia – I</span>
-      </div>
-      <div class="autor">(Gen Rosso — Benedikt Enderle / Valerio Ciprì)</div>
-      <div class="letra"><strong>Aleluia, aleluia,
-Aleluia, aleluia.
-exultemos no senhor!</strong>
-
-1. Exultemos em Cristo Salvador:
-Vive na sua Igreja,
-Leva os homens para a paz.
-
-2. Exultemos em Cristo Salvador:
-Nele renascerá
-Todo homem desta Terra.</div>
-      <a class="home-btn" href="#topo">⌂</a>
-    </section>
-
-    <section class="canto" id="abencoa">
-      <div>
-        <span class="titulo">Abençoa</span>
-      </div>
-      <div class="autor">(Gen Rosso — Benedikt Enderle / Valerio Ciprì)</div>
-      <div class="letra">Noite e dia, longas madrugadas,
-E a semente espera.
-E o milagre antigo e sempre novo
-Fecunda toda a terra.
-Do grão morto e pisado, a vida nascerá:
-Na mesa, eis o pão.
-
-<strong>Abençoa, ó senhor,
-nossa oferta, dá-nos tua paz
-e a unidade no teu corpo,
-Que se consuma também por nós.</strong>
-
-Nossas vinhas, com o sol aberto,
-Já estão florindo.
-E o orvalho, no silêncio, toca os primeiros frutos.
-E as cores são mais vivas,
-Acendem os grãos maduros:
-Na mesa, eis o vinho.
-
-<strong>Abençoa, ó senhor,
-nossa oferta, dá-nos tua paz
-e a unidade no teu sangue,
-Que se consuma também por nós.</strong></div>
-      <a class="home-btn" href="#topo">⌂</a>
-    </section>
-
-    <section class="canto" id="acolhe">
-      <div>
-        <span class="titulo">Acolhe a nossa oferta</span>
-      </div>
-      <div class="autor">(Gen Verde — Marie Thérèse Henderson)</div>
-      <div class="letra">Acolhe, Senhor, a nossa oferta,
-Neste misterioso encontro
-Da nossa pobreza
-Com a tua grandeza.
-
-Nós te oferecemos tudo
-Que de ti mesmo recebemos.
-Tu, em troca, doa-nos,
-Doa a tua presença.
-
-Acolhe, Senhor, a nossa oferta!</div>
-      <a class="home-btn" href="#topo">⌂</a>
-    </section>
-
-    <section class="canto" id="santo">
-      <div>
-        <span class="titulo">Santo – I</span>
-      </div>
-      <div class="autor">(Gen Rosso — Benedikt Enderle / Valerio Ciprì)</div>
-      <div class="letra">Santo, Santo, Santo
-É o Senhor Deus do universo.
-Os céus e a terra
-Resplandecem da tua glória.
-
-Hosana, hosana, (Bis)
-Hosana no alto dos céus!
-
-Bendito é aquele que vem
-Em nome do Senhor.
-
-Hosana, hosana, (Bis)
-Hosana no alto dos céus!</div>
-      <a class="home-btn" href="#topo">⌂</a>
-    </section>
-
-    <section class="canto" id="atua-vontade">
-      <div>
-        <span class="titulo">A tua vontade</span>
-      </div>
-      <div class="autor">(Gen Festa — Heliomar Ferreira)</div>
-      <div class="letra">Faze de mim como folha ao vento
-Que se deixa sempre transportar,
-Mesmo se não sabe,
-Não sabe nunca onde pousará.
-
-Faze de mim como as águas do mar,
-Que se deixam sempre ondear,
-Sem nunca saber, sem saber quando retornarão.
-
-<strong>Porque, ó deus, o vento e o mar
-ou mesmo o sol, é teu amor!
-Porque, ó deus, partir ou voltar,
-sofrer ou cantar, é sempre amor!</strong>
-
-Faze de mim como neve ao sol,
-que se deixa acariciar sem temor,
-sabendo que depois, depois ao sol se dissolverá.
-
-<strong>Porque, ó deus, a tua vontade
-É sempre amor, és sempre tu!
-porque, ó deus, a tua vontade
-É sempre amor, és sempre tu!</strong><div>
-      <a class="home-btn" href="#topo">⌂</a>
-    </section>
-
-    <section class="canto" id="fogo-vivo">
-      <div>
-        <span class="titulo">Fogo vivo</span>
-      </div>
-      <div class="autor">(Gen Verde — Marie Thérèse Henderson)</div>
-      <div class="letra"><strong>Como fogo vivo se acende em nós
-uma imensa felicidade,
-Que ninguém jamais poderá tirar,
-porque estás entre nós.
-Como é bom sentir que estás aqui,
-lado a lado a nos acompanhar,
-Que venceste a morte pra sempre, que
-tu nos doaste a vida.</strong>
-
-1. Tu partilhas conosco o pão,
-Nossos olhos se abrem,
-Vêem. Vibra o coração.
-És tu! Fica entre nós.
-
-2. E pra sempre repetirás
-Esse gesto de amor.
-Mãos que se abrem pra nós doar
-O pão que faz viver.</div>
-      <a class="home-btn" href="#topo">⌂</a>
-    </section>
-
-    <section class="canto" id="obrigado">
-      <div>
-        <span class="titulo">Obrigado</span>
-      </div>
-      <div class="autor">(Gen Verde — Marie Thérèse Henderson)</div>
-      <div class="letra no-pre">Porque Tu me tens amado como Tu sabes amar,<br>
-Pois perdi o meu olhar na tua imensidão,<br>
-<br>
-<strong>Se um dia perguntasses quem sou,<br>
-Não diria o meu nome; diria: Obrigado<br>
-Por tudo e pra sempre. Obrigado, obrigado.</strong><br>
-<br>
-Quando eu chegar a ti, à tua porta,<br>
-Eu me perderei em ti, me perderei em ti.<br>
-<br>
-<strong>Quando Tu me perguntares quem sou,<br>
-Não direi o meu nome; direi: Obrigado<br>
-Por tudo e pra sempre. Obrigado, obrigado.</strong></div>
-      <a class="home-btn" href="#topo">⌂</a>
-    </section>
-
-    <section class="canto" id="maria">
-      <div>
-        <span class="titulo">Maria</span>
-      </div>
-      <div class="autor">(Gen Rosso — Benedikt Enderle / Valerio Ciprì)</div>
-      <div class="letra">1. Quando o Amor quis na terra reinar,
-A sua palavra quis ao mundo anunciar,
-A sua celeste harmonia
-Ansiava entre nós ecoar.
-
-Pra realizar este plano, o Senhor
-Quis encontrar um silêncio de amor.
-A luz nesta sombra brilhou
-E a harmonia no silêncio ecoou.
-
-<strong>Quem é esta sombra tão bela,
-morrendo no sol, resplandece mais?
-e este silêncio altíssimo de amor?
-Maria, és tu!</strong>
-
-2. De ti queremos, em eterno, cantar,
-Imenso céu que contém o amor.
-Tu és a Mãe e por ti veio entre nós
-O Senhor, o Senhor!</div>
-      <a class="home-btn" href="#topo">⌂</a>
-    </section>
-
-    <div class="footer">
-      Mariápolis 2026 • Movimento dos Focolares
-    </div>
-
-  </div>
-
-  <script>
-    const increaseBtn = document.getElementById('increaseFont');
-    const decreaseBtn = document.getElementById('decreaseFont');
-    const resetBtn = document.getElementById('resetFont');
-
-    let scale = 1;
-
-    function updateFontScale() {
-      document.documentElement.style.setProperty('--font-scale', scale);
-      localStorage.setItem('fontScale', scale);
-    }
-
-    increaseBtn.addEventListener('click', () => {
-      if (scale < 1.6) {
-        scale += 0.1;
-        updateFontScale();
+      function updateFontScale() {
+        document.documentElement.style.setProperty("--font-scale", scale);
+        localStorage.setItem("fontScale", scale);
       }
-    });
 
-    decreaseBtn.addEventListener('click', () => {
-      if (scale > 0.7) {
-        scale -= 0.1;
+      increaseBtn.addEventListener("click", () => {
+        if (scale < 1.6) {
+          scale += 0.1;
+          updateFontScale();
+        }
+      });
+
+      decreaseBtn.addEventListener("click", () => {
+        if (scale > 0.7) {
+          scale -= 0.1;
+          updateFontScale();
+        }
+      });
+
+      resetBtn.addEventListener("click", () => {
+        scale = 1;
         updateFontScale();
-      }
-    });
+      });
 
-    resetBtn.addEventListener('click', () => {
-      scale = 1;
-      updateFontScale();
-    });
-
-    window.onload = () => {
-      const saved = localStorage.getItem('fontScale');
-      if (saved) {
-        scale = parseFloat(saved);
-        updateFontScale();
-      }
-    };
-  </script>
-</body>
+      window.onload = () => {
+        const saved = localStorage.getItem("fontScale");
+        if (saved) {
+          scale = parseFloat(saved);
+          updateFontScale();
+        }
+      };
+    </script>
+  </body>
 </html>
