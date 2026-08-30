@@ -7,7 +7,7 @@
     <style>
       :root {
         --font-scale: 1;
-        --base-font: 22px;
+        --base-font: clamp(16px, 3.5vw, 22px);
         --primary: #1f2937;
         --secondary: #4b5563;
         --muted: #6b7280;
@@ -87,7 +87,7 @@
         margin-bottom: 32px;
         font-size: 1.5em;
         color: var(--primary);
-        padding-top: 70px;
+        padding-top: 70px; /* espaço para os controles fixos */
       }
 
       .indice {
@@ -101,11 +101,12 @@
       .indice h2 {
         margin-top: 0;
         font-size: 1.3em;
-        border-bottom: 2px solid var(--accent);
+        border-bottom: 2px solid #d6d3d1;
         padding-bottom: 8px;
         color: var(--accent);
       }
 
+      /* Índice como lista vertical, um item por linha */
       .indice ul {
         list-style: none;
         padding-left: 0;
@@ -143,6 +144,7 @@
         position: relative;
       }
 
+      /* Cabeçalho do canto: título e autor lado a lado no desktop */
       .canto-header {
         display: flex;
         flex-wrap: wrap;
@@ -165,13 +167,8 @@
       }
 
       .letra {
-        white-space: normal;
-        line-height: 1.8;
-      }
-
-      .estrofe {
-        margin-bottom: 1.15em;
-        line-height: 1.8;
+        white-space: pre-line;
+        line-height: 1.15;
       }
 
       .no-pre {
@@ -203,6 +200,12 @@
         box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
       }
 
+      .estrofe {
+        font-size: 1.08em;
+        line-height: 1.15;
+        margin-bottom: 18px;
+      }
+
       .duas-vozes,
       .refrain {
         display: grid;
@@ -213,7 +216,7 @@
 
       .voz {
         font-size: 1.05em;
-        line-height: 1.8;
+        line-height: 1.15;
       }
 
       .duas-vozes.alinhadas {
@@ -295,7 +298,7 @@
 
       @media (max-width: 768px) {
         :root {
-          --base-font: 20px;
+          --base-font: clamp(16px, 4vw, 20px);
         }
 
         .container {
@@ -332,6 +335,7 @@
         }
       }
 
+      /* Em celulares na horizontal, preserva as duas vozes lado a lado com mais espaço. */
       @media (max-width: 768px) and (orientation: landscape) {
         .duas-vozes,
         .refrain {
@@ -382,34 +386,30 @@
           <span class="autor"></span>
         </div>
         <div class="letra">
-          <div class="estrofe">
-            Ave, Mariápolis<br>
-            Tu és a meta do meu caminhar!<br>
-            Amo tudo que é teu,<br>
-            Com aquele amor descido do céu.<br>
-            Contigo sempre espero viver.
-          </div>
-          <div class="estrofe">
-            Que bom seria, pois nada neste mundo<br>
-            Convida-me a amar tal como tu!<br>
-            E, num encanto, no coração eu sinto,<br>
-            Alguém que me convida a te seguir.
-          </div>
-          <div class="estrofe">
-            Ave, fonte de amor,<br>
-            Sonho mais lindo de a gente sonhar!<br>
-            Vivo pensando que<br>
-            Contigo um dia no céu hei de estar.<br>
-            Aqui na Terra, com todo ardor,
-          </div>
-          <div class="estrofe">
-            Hei de gritar: façamos deste mundo<br>
-            Uma grande família, um só amor!<br>
-            Corramos logo, façamos todos juntos<br>
-            A única Mariápolis que ficará.<br>
-            Lá, lá, laiá<br>
-            Corramos logo…
-          </div>
+          <br />
+Ave, Mariápolis<br />
+Tu és a meta do meu caminhar!<br />
+Amo tudo que é teu,<br />
+Com aquele amor descido do céu.<br />
+Contigo sempre espero viver.<br />
+<br />
+Que bom seria, pois nada neste mundo<br />
+Convida-me a amar tal como tu!<br />
+E, num encanto, no coração eu sinto,<br />
+Alguém que me convida a te seguir.<br />
+<br />
+Ave, fonte de amor,<br />
+Sonho mais lindo de a gente sonhar!<br />
+Vivo pensando que<br />
+Contigo um dia no céu hei de estar.<br />
+Aqui na Terra, com todo ardor,<br />
+<br />
+Hei de gritar: façamos deste mundo<br />
+Uma grande família, um só amor!<br />
+Corramos logo, façamos todos juntos<br />
+A única Mariápolis que ficará.<br />
+Lá, lá, laiá<br />
+Corramos logo…<br />
         </div>
         <a class="home-btn" href="#topo">⌂</a>
       </section>
@@ -420,33 +420,26 @@
           <span class="autor"></span>
         </div>
         <div class="letra">
-          <div class="estrofe">
-            Canto da vida o encanto<br>
-            A beleza deste céu e deste mar<br>
-            A esperança que nasce da mesa<br>
-            Deste pão repartido<br>
-            Neste chão pra pisar
-          </div>
-          <div class="estrofe">
-            Canto do amor a certeza<br>
-            Que as barreiras vão desaparecer<br>
-            Que a paz será semente plantada, irrigada e que um dia,<br>
-            Vai florescer
-          </div>
-          <div class="estrofe">
-            Não, isto não é o sonho<br>
-            Nem mesmo uma mera ilusão<br>
-            O amor fará nascer entre nós<br>
-            Um novo mundo de irmãos
-          </div>
-          <div class="estrofe">
-            Esta nova humanidade<br>
-            Como o sol há de brilhar<br>
-            E sua luz sem tréguas resplandecerá!
-          </div>
-          <div class="estrofe">
-            Lá laiá lá laiá lá laiá (BIS)
-          </div>
+          <br />
+Canto da vida o encanto<br />
+A beleza deste céu e deste mar<br />
+A esperança que nasce da mesa<br />
+Deste pão repartido<br />
+Neste chão pra pisar<br />
+Canto do amor a certeza<br />
+Que as barreiras vão desaparecer<br />
+Que a paz será semente plantada, irrigada e que um dia,<br />
+Vai florescer<br />
+<br />
+Não, isto não é o sonho<br />
+Nem mesmo uma mera ilusão<br />
+O amor fará nascer entre nós<br />
+Um novo mundo de irmãos<br />
+Esta nova humanidade<br />
+  Como o sol há de brilhar<br />
+E sua luz sem tréguas   resplandecerá!<br />
+<br />
+Lá laiá lá laiá lá laiá    (BIS)<br />
         </div>
         <a class="home-btn" href="#topo">⌂</a>
       </section>
@@ -457,44 +450,40 @@
           <span class="autor"></span>
         </div>
         <div class="letra">
-          <div class="estrofe">
-            Ao calor do Sol floresce a terra<br>
-            Explode a vida das sementes que o chão<br>
-            Tentava esconder<br>
-            Assim, no coração daquele que ama<br>
-            Brotará a semente da civilização<br>
-            Da vida e do amor
-          </div>
-          <div class="estrofe">
-            <div class="duas-vozes">
-              <div class="voz"><strong>E a quem dá será dado</strong><br>
-              <strong>É a vida que traz em si</strong><br>
-              <strong>Que jamais morrerá</strong></div>
-              <div class="voz"><strong>força e calor</strong><br>
-              <strong>a potência do amor</strong><br>
-              <strong>que jamais morrerá</strong></div>
+          <br />
+Ao calor do Sol floresce a terra<br />
+Explode a vida das sementes que o chão<br />
+Tentava esconder<br />
+Assim, no coração daquele que ama<br />
+Brotará a semente da civilização<br />
+Da vida e do amor<br />
+<br />
+<div class="duas-vozes">
+              <div class="voz"><strong>E a quem dá será dado</strong><br />
+<strong>É a vida que traz em si</strong><br />
+<strong>Que jamais morrerá</strong></div>
+              <div class="voz"><strong>força e calor</strong><br />
+<strong>a potência do amor</strong><br />
+<strong>que jamais morrerá</strong></div>
             </div>
-            <strong>Se a vida gritar: Sim à vida (BIS)</strong>
-          </div>
-          <div class="estrofe">
-            Ao calor do Sol floresce a terra<br>
-            Explode a vida das sementes que o chão<br>
-            Tentava esconder<br>
-            Brilham as cores, resplandecem os campos<br>
-            Renasce a esperança de ver em cada ponto<br>
-            O triunfo da vida
-          </div>
-          <div class="estrofe">
-            <div class="duas-vozes">
-              <div class="voz"><strong>E a quem dá será dado</strong><br>
-              <strong>É a vida que traz em si</strong><br>
-              <strong>Que jamais morrerá</strong></div>
-              <div class="voz"><strong>força e calor</strong><br>
-              <strong>a potência do amor</strong><br>
-              <strong>que jamais morrerá</strong></div>
+<strong>Se a vida gritar: Sim à vida (BIS)</strong><br />
+<br />
+Ao calor do Sol floresce a terra<br />
+Explode a vida das sementes que o chão<br />
+Tentava esconder<br />
+Brilham as cores, resplandecem os campos<br />
+Renasce a esperança de ver em cada ponto<br />
+O triunfo da vida<br />
+<br />
+<div class="duas-vozes">
+              <div class="voz"><strong>E a quem dá será dado</strong><br />
+<strong>É a vida que traz em si</strong><br />
+<strong>Que jamais morrerá</strong></div>
+              <div class="voz"><strong>força e calor</strong><br />
+<strong>a potência do amor</strong><br />
+<strong>que jamais morrerá</strong></div>
             </div>
-            <strong>Se a vida gritar: Sim à vida (BIS)</strong>
-          </div>
+<strong>Se a vida gritar: Sim à vida (BIS)</strong><br />
         </div>
         <a class="home-btn" href="#topo">⌂</a>
       </section>
@@ -505,42 +494,38 @@
           <span class="autor"></span>
         </div>
         <div class="letra">
-          <div class="estrofe">
-            É como um por de Sol<br>
-            Um milênio já se vai<br>
-            E a esperança fez sorrir a vida<br>
-            E um novo milênio virá<br>
-            E verá reflorir toda a terra<br>
-            O amor que existe entre nós crescerá
-          </div>
-          <div class="estrofe">
-            <strong>Queremos que seja, e a Terra será</strong><br>
-            <strong>Um grande jardim, que</strong><br>
-            <strong>Já não terá Norte e Sul</strong><br>
-            <strong>E veremos brotar uma só humanidade</strong><br>
-            <strong>Queremos que seja, e a Terra será</strong><br>
-            <strong>Um grande jardim, que</strong><br>
-            <strong>Florescerá e será como Deus o criou</strong><br>
-            <strong>A sua casa entre os homens</strong>
-          </div>
-          <div class="estrofe">
-            Temos um novo mundo<br>
-            Germinando em nossas mãos<br>
-            É construído com a nossa vida<br>
-            E o dia de luz já chegou<br>
-            Como rede que envolve a Terra<br>
-            A viva unidade entre nós crescerá
-          </div>
-          <div class="estrofe">
-            <strong>Queremos que seja, e a Terra será</strong><br>
-            <strong>Um grande jardim, que</strong><br>
-            <strong>Já não terá Norte e Sul</strong><br>
-            <strong>E veremos brotar uma só humanidade</strong><br>
-            <strong>Queremos que seja, e a Terra será</strong><br>
-            <strong>Um grande jardim, que</strong><br>
-            <strong>Florescerá e será como Deus o criou</strong><br>
-            <strong>A sua casa entre os homens</strong>
-          </div>
+          <br />
+É como um por de Sol<br />
+Um milênio já se vai<br />
+E a esperança fez sorrir a vida<br />
+E um novo milênio virá<br />
+E verá reflorir toda a terra<br />
+O amor que existe entre nós crescerá<br />
+<br />
+<strong>Queremos que seja, e a Terra será</strong><br />
+<strong>Um grande jardim, que</strong><br />
+<strong>Já não terá Norte e Sul</strong><br />
+<strong>E veremos brotar uma só humanidade</strong><br />
+<strong>Queremos que seja, e a Terra será</strong><br />
+<strong>Um grande jardim, que</strong><br />
+<strong>Florescerá e será como Deus o criou</strong><br />
+<strong>A sua casa entre os homens</strong><br />
+<br />
+Temos um novo mundo<br />
+Germinando em nossas mãos<br />
+É construído com a nossa vida<br />
+E o dia de luz já chegou<br />
+Como rede que envolve a Terra<br />
+A viva unidade entre nós crescerá<br />
+<br />
+<strong>Queremos que seja, e a Terra será</strong><br />
+<strong>Um grande jardim, que</strong><br />
+<strong>Já não terá Norte e Sul</strong><br />
+<strong>E veremos brotar uma só humanidade</strong><br />
+<strong>Queremos que seja, e a Terra será</strong><br />
+<strong>Um grande jardim, que</strong><br />
+<strong>Florescerá e será como Deus o criou</strong><br />
+<strong>A sua casa entre os homens</strong><br />
         </div>
         <a class="home-btn" href="#topo">⌂</a>
       </section>
@@ -551,46 +536,40 @@
           <span class="autor"></span>
         </div>
         <div class="letra">
-          <div class="estrofe">
-            Vejo rostos diferentes<br>
-            Dessa gente ao meu lado.<br>
-            Quanta vida, quanta sede de felicidade!<br>
-            Quantos sonhos já vividos,<br>
-            Mundos tão desconhecidos,<br>
-            Universos cheios de esplendor!
-          </div>
-          <div class="estrofe">
-            <strong>É tão linda a vida</strong><br>
-            <strong>Na unidade, na harmonia!</strong><br>
-            <strong>É tão linda a vida! (BIS)</strong>
-          </div>
-          <div class="estrofe">
-            Em meu coração acolho<br>
-            A esperança e a dor,<br>
-            O silêncio e o canto<br>
-            Dessa gente ao meu redor.<br>
-            Em seu pranto, em seu sorriso,<br>
-            O meu pranto, o meu sorriso;<br>
-            Quem está ao meu lado é igual a mim.
-          </div>
-          <div class="estrofe">
-            <strong>É tão linda a vida</strong><br>
-            <strong>Na unidade, na harmonia!</strong><br>
-            <strong>É tão linda a vida! (BIS)</strong>
-          </div>
-          <div class="estrofe">
-            Entre casas e arranha-céus,<br>
-            Entre antenas lá no alto,<br>
-            Assim tão azul o céu eu antes nunca vi.<br>
-            E as luzes ganham vida,<br>
-            Colorindo até o asfalto,<br>
-            Já que somos todos uma só voz
-          </div>
-          <div class="estrofe">
-            <strong>É tão linda a vida</strong><br>
-            <strong>Na unidade, na harmonia!</strong><br>
-            <strong>É tão linda a vida! (BIS)</strong>
-          </div>
+          <br />
+Vejo rostos diferentes<br />
+Dessa gente ao meu lado.<br />
+Quanta vida, quanta sede de felicidade!<br />
+Quantos sonhos já vividos,<br />
+Mundos tão desconhecidos,<br />
+Universos cheios de esplendor!<br />
+<br />
+<strong>É tão linda a vida</strong><br />
+<strong>Na unidade, na harmonia!</strong><br />
+<strong>É tão linda a vida!                  (BIS)</strong><br />
+<br />
+Em meu coração acolho<br />
+A esperança e a dor,<br />
+O silêncio e o canto<br />
+Dessa gente ao meu redor.<br />
+Em seu pranto, em seu sorriso,<br />
+O meu pranto, o meu sorriso;<br />
+Quem está ao meu lado é igual a mim.<br />
+<br />
+<strong>É tão linda a vida</strong><br />
+<strong>Na unidade, na harmonia!</strong><br />
+<strong>É tão linda a vida!                  (BIS)</strong><br />
+<br />
+Entre casas e arranha-céus,<br />
+Entre antenas lá no alto,<br />
+Assim tão azul o céu eu antes nunca vi.<br />
+E as luzes ganham vida,<br />
+Colorindo até o asfalto,<br />
+Já que somos todos uma só voz<br />
+<br />
+<strong>É tão linda a vida</strong><br />
+<strong>Na unidade, na harmonia!</strong><br />
+<strong>É tão linda a vida!                  (BIS)</strong><br />
         </div>
         <a class="home-btn" href="#topo">⌂</a>
       </section>
@@ -601,8 +580,8 @@
           <span class="autor"></span>
         </div>
         <div class="letra">
-          <div class="estrofe">
-            <div class="duas-vozes alinhadas">
+          <br />
+<div class="duas-vozes alinhadas">
               <div class="voz-row">
                 <div class="voz">Eis que agora dentro em mim</div>
                 <div class="voz">Agora em mim</div>
@@ -636,9 +615,8 @@
                 <div class="voz">No coração</div>
               </div>
             </div>
-          </div>
-          <div class="estrofe">
-            <div class="duas-vozes alinhadas">
+<br />
+<div class="duas-vozes alinhadas">
               <div class="voz-row">
                 <div class="voz"><strong>Somente amar</strong></div>
                 <div class="voz"><strong>Não mais pensar</strong></div>
@@ -664,9 +642,8 @@
                 <div class="voz"><strong>Que dá sem esperar</strong></div>
               </div>
             </div>
-          </div>
-          <div class="estrofe">
-            <div class="duas-vozes alinhadas">
+<br />
+<div class="duas-vozes alinhadas">
               <div class="voz-row">
                 <div class="voz">Caminhando pelo mundo</div>
                 <div class="voz">Eu levarei</div>
@@ -684,9 +661,8 @@
                 <div class="voz">Só deixarei</div>
               </div>
             </div>
-          </div>
-          <div class="estrofe">
-            <div class="duas-vozes alinhadas">
+<br />
+<div class="duas-vozes alinhadas">
               <div class="voz-row">
                 <div class="voz"><strong>Somente amar</strong></div>
                 <div class="voz"><strong>Não mais pensar</strong></div>
@@ -712,9 +688,8 @@
                 <div class="voz"><strong>Que dá sem esperar</strong></div>
               </div>
             </div>
-          </div>
-          <div class="estrofe">
-            <div class="duas-vozes alinhadas">
+<br />
+<div class="duas-vozes alinhadas">
               <div class="voz-row">
                 <div class="voz">Caminhando pelo mundo</div>
                 <div class="voz">Eu levarei</div>
@@ -732,7 +707,6 @@
                 <div class="voz">Só deixarei</div>
               </div>
             </div>
-          </div>
         </div>
         <a class="home-btn" href="#topo">⌂</a>
       </section>
@@ -743,36 +717,32 @@
           <span class="autor"></span>
         </div>
         <div class="letra">
-          <div class="estrofe">
-            Nossa pátria agora é um mundo<br>
-            Mundo unido está em nossas mãos<br>
-            Tudo aqui se tornará possível<br>
-            É uma nova maneira de viver.<br>
-            Cada um de nós protagonistas<br>
-            Uma outra história fará.
-          </div>
-          <div class="estrofe">
-            <strong>Liberdade é conquistar</strong><br>
-            <strong>O caminho em direção ao sol</strong><br>
-            <strong>Este é o grande desafio</strong><br>
-            <strong>Não temos barreiras para amar.</strong><br>
-            <strong>Não temos barreiras para amar.</strong>
-          </div>
-          <div class="estrofe">
-            A cultura nova está surgindo<br>
-            Onde o ter não vai mais importar<br>
-            Onde o equilíbrio está no dar<br>
-            Homens novos nós seremos já.<br>
-            Cada um de nós protagonistas<br>
-            Uma outra história fará.
-          </div>
-          <div class="estrofe">
-            <strong>Liberdade é conquistar</strong><br>
-            <strong>O caminho em direção ao sol</strong><br>
-            <strong>Este é o grande desafio</strong><br>
-            <strong>Não temos barreiras para amar.</strong><br>
-            <strong>Não temos barreiras para amar.</strong>
-          </div>
+          <br />
+Nossa pátria agora é um mundo<br />
+Mundo unido está em nossas mãos<br />
+Tudo aqui se tornará possível<br />
+É uma nova maneira de viver.<br />
+Cada um de nós protagonistas<br />
+Uma outra história fará.<br />
+<br />
+<strong>Liberdade é conquistar</strong><br />
+<strong>O caminho em direção ao sol</strong><br />
+<strong>Este é o grande desafio</strong><br />
+<strong>Não temos barreiras para amar.</strong><br />
+<strong>Não temos barreiras para amar.</strong><br />
+<br />
+A cultura nova está surgindo<br />
+Onde o ter não vai mais importar<br />
+Onde o equilíbrio está no dar<br />
+Homens novos nós seremos já.<br />
+Cada um de nós protagonistas<br />
+Uma outra história fará.<br />
+<br />
+<strong>Liberdade é conquistar</strong><br />
+<strong>O caminho em direção ao sol</strong><br />
+<strong>Este é o grande desafio</strong><br />
+<strong>Não temos barreiras para amar.</strong><br />
+<strong>Não temos barreiras para amar.</strong><br />
         </div>
         <a class="home-btn" href="#topo">⌂</a>
       </section>
@@ -783,47 +753,40 @@
           <span class="autor"></span>
         </div>
         <div class="letra">
-          <div class="estrofe">
-            Undarundê undaradaiá<br>
-            Undarundê undaradaiá (bis)
-          </div>
-          <div class="estrofe">
-            <strong>Canto, eu canto e a alegria é maior</strong><br>
-            <strong>Que a tristeza no coração.</strong><br>
-            <strong>Eu canto, eu canto, e o segredo é o amor,</strong><br>
-            <strong>Que é a força dessa canção.</strong>
-          </div>
-          <div class="estrofe">
-            O amor se dobra pra não romper;<br>
-            É dar e receber<br>
-            E todo dia renascer no amor,<br>
-            Que é fonte de liberdade,<br>
-            Pedra da unidade,<br>
-            Resposta pra solidão.
-          </div>
-          <div class="estrofe">
-            <strong>Canto, eu canto e a alegria é maior</strong><br>
-            <strong>Que a tristeza no coração.</strong><br>
-            <strong>Eu canto, eu canto, e o segredo é o amor,</strong><br>
-            <strong>Que é a força dessa canção.</strong>
-          </div>
-          <div class="estrofe">
-            Mesmo se o fogo quer se apagar,<br>
-            A hora é de lutar.<br>
-            E em cada rosto descobrir que o amor<br>
-            É vida pra se espalhar.<br>
-            Rio que busca o mar, numa invasão de amor.
-          </div>
-          <div class="estrofe">
-            <strong>Canto, eu canto e a alegria é maior</strong><br>
-            <strong>Que a tristeza no coração.</strong><br>
-            <strong>Eu canto, eu canto, e o segredo é o amor,</strong><br>
-            <strong>Que é a força dessa canção.</strong>
-          </div>
-          <div class="estrofe">
-            Undarundê undaradaiá<br>
-            Undarundê undaradaiá (bis)
-          </div>
+          <br />
+Undarundê undaradaiá<br />
+Undarundê undaradaiá    (bis)<br />
+<br />
+<strong>Canto, eu canto e a alegria é maior</strong><br />
+<strong>Que a tristeza no coração.</strong><br />
+<strong>Eu canto, eu canto, e o segredo é o amor,</strong><br />
+<strong>Que é a força dessa canção.</strong><br />
+<br />
+O amor se dobra pra não romper;<br />
+É dar e receber<br />
+E todo dia renascer no amor,<br />
+Que é fonte de liberdade,<br />
+Pedra da unidade,<br />
+Resposta pra solidão.<br />
+<br />
+<strong>Canto, eu canto e a alegria é maior</strong><br />
+<strong>Que a tristeza no coração.</strong><br />
+<strong>Eu canto, eu canto, e o segredo é o amor,</strong><br />
+<strong>Que é a força dessa canção.</strong><br />
+<br />
+Mesmo se o fogo quer se apagar,<br />
+A hora é de lutar.<br />
+E em cada rosto descobrir que o amor<br />
+É vida pra se espalhar.<br />
+Rio que busca o mar, numa invasão de amor.<br />
+<br />
+<strong>Canto, eu canto e a alegria é maior</strong><br />
+<strong>Que a tristeza no coração.</strong><br />
+<strong>Eu canto, eu canto, e o segredo é o amor,</strong><br />
+<strong>Que é a força dessa canção.</strong><br />
+<br />
+Undarundê undaradaiá<br />
+Undarundê undaradaiá    (bis)<br />
         </div>
         <a class="home-btn" href="#topo">⌂</a>
       </section>
@@ -834,58 +797,51 @@
           <span class="autor"></span>
         </div>
         <div class="letra">
-          <div class="estrofe">
-            Pare, ouça Ele falar<br>
-            Sinta a música tocar<br>
-            O Amor lhe chama<br>
-            A sua vida inflama.<br>
-            Sinta a Alma e o fogo arder<br>
-            Vivendo, faça-o entender<br>
-            Siga o Seu grito<br>
-            Sem temer o risco.
-          </div>
-          <div class="estrofe">
-            <strong>E nessa escolha eu vou viver</strong><br>
-            <strong>Esse caminho percorrer</strong><br>
-            <strong>Passo a passo, juntos</strong><br>
-            <strong>Sempre unindo mais o mundo</strong><br>
-            <strong>Um povo, uma família</strong><br>
-            <strong>Que ama, e partilha</strong><br>
-            <strong>LOVE, LOVE, LOVE!</strong><br>
-            <strong>LOVE, LOVE, LOVE!</strong><br>
-            <strong>OUR REVOLUTION!!</strong>
-          </div>
-          <div class="estrofe">
-            Força, você vai conseguir<br>
-            Coragem! Eu estou aqui.<br>
-            Voe mais alto, seguro.<br>
-            A unidade é o futuro!
-          </div>
-          <div class="estrofe">
-            <strong>E nessa escolha eu vou viver</strong><br>
-            <strong>Esse caminho percorrer</strong><br>
-            <strong>Passo a passo, juntos</strong><br>
-            <strong>Sempre unindo mais o mundo</strong><br>
-            <strong>Um povo, uma família</strong><br>
-            <strong>Que ama, e partilha</strong><br>
-            <strong>LOVE, LOVE, LOVE!</strong><br>
-            <strong>LOVE, LOVE, LOVE!</strong><br>
-            <strong>OUR REVOLUTION!!</strong>
-          </div>
-          <div class="estrofe">
-            Lalalalala<br>
-            Lalalalala LOVE...
-          </div>
-          <div class="estrofe">
-            Ohhh Ohhh O-O-Ohhhh<br>
-            Ohhh Ohhh O-O-Ohhhh
-          </div>
-          <div class="estrofe">
-            A escolha q você já fez<br>
-            É a escolha que faremos nós!!!
-          </div>
-          <div class="estrofe">
-            <div class="duas-vozes alinhadas">
+          <br />
+Pare, ouça Ele falar<br />
+Sinta a música tocar<br />
+O Amor lhe chama<br />
+A sua vida inflama.<br />
+Sinta a Alma e o fogo arder<br />
+Vivendo, faça-o entender<br />
+Siga o Seu grito<br />
+Sem temer o risco.<br />
+<br />
+<strong>E nessa escolha eu vou viver</strong><br />
+<strong>Esse caminho percorrer</strong><br />
+<strong>Passo a passo, juntos</strong><br />
+<strong>Sempre unindo mais o mundo</strong><br />
+<strong>Um povo, uma família</strong><br />
+<strong>Que ama, e partilha</strong><br />
+<strong>LOVE, LOVE, LOVE!</strong><br />
+<strong>LOVE, LOVE, LOVE!</strong><br />
+<strong>OUR REVOLUTION!!</strong><br />
+<br />
+Força, você vai conseguir<br />
+Coragem! Eu estou aqui.<br />
+Voe mais alto, seguro.<br />
+A unidade é o futuro!<br />
+<br />
+<strong>E nessa escolha eu vou viver</strong><br />
+<strong>Esse caminho percorrer</strong><br />
+<strong>Passo a passo, juntos</strong><br />
+<strong>Sempre unindo mais o mundo</strong><br />
+<strong>Um povo, uma família</strong><br />
+<strong>Que ama, e partilha</strong><br />
+<strong>LOVE, LOVE, LOVE!</strong><br />
+<strong>LOVE, LOVE, LOVE!</strong><br />
+<strong>OUR REVOLUTION!!</strong><br />
+<br />
+Lalalalala<br />
+Lalalalala    LOVE...<br />
+<br />
+Ohhh  Ohhh O-O-Ohhhh<br />
+Ohhh  Ohhh O-O-Ohhhh<br />
+<br />
+A escolha q você já fez<br />
+É a escolha que faremos nós!!!<br />
+<br />
+<div class="duas-vozes alinhadas">
               <div class="voz-row">
                 <div class="voz"><strong>E nessa escolha eu vou viver</strong></div>
                 <div class="voz"><strong>Take a chance</strong></div>
@@ -899,10 +855,8 @@
                 <div class="voz"><strong>All together</strong></div>
               </div>
             </div>
-            <strong>Sempre unindo mais o mundo</strong>
-          </div>
-          <div class="estrofe">
-            <div class="duas-vozes alinhadas">
+<strong>Sempre unindo mais o mundo</strong><br />
+<div class="duas-vozes alinhadas">
               <div class="voz-row">
                 <div class="voz"><strong>Um povo,uma família</strong></div>
                 <div class="voz"><strong>Live the life</strong></div>
@@ -912,12 +866,11 @@
                 <div class="voz"><strong>Make a change</strong></div>
               </div>
             </div>
-            <strong>LOVE,LOVE,LOVE!</strong><br>
-            <strong>LOVE,LOVE,LOVE!</strong><br>
-            <strong>OUR REVOLUTION!!</strong>
-          </div>
-          <div class="estrofe">
-            <div class="duas-vozes alinhadas">
+<strong>LOVE,LOVE,LOVE!</strong><br />
+<strong>LOVE,LOVE,LOVE!</strong><br />
+<strong>OUR REVOLUTION!!</strong><br />
+<br />
+<div class="duas-vozes alinhadas">
               <div class="voz-row">
                 <div class="voz"><strong>E nessa escolha eu vou viver</strong></div>
                 <div class="voz"><strong>Take a chance</strong></div>
@@ -931,8 +884,7 @@
                 <div class="voz"><strong>All together</strong></div>
               </div>
             </div>
-            <strong>LOVE,LOVE,LOVE!</strong>
-          </div>
+<strong>LOVE,LOVE,LOVE!</strong><br />
         </div>
         <a class="home-btn" href="#topo">⌂</a>
       </section>
@@ -943,69 +895,60 @@
           <span class="autor"></span>
         </div>
         <div class="letra">
-          <div class="estrofe">
-            Uma terra que não tem mais fronteiras.<br>
-            Mãos que unidas no mundo formarão<br>
-            Uma corrente mais forte<br>
-            Que a guerra e que a morte.<br>
-            Nós sabemos, o caminho é o amor.
-          </div>
-          <div class="estrofe">
-            Uma pátria mais justa e mais fraterna<br>
-            Onde juntos construímos a unidade,<br>
-            E ninguém é desprezado<br>
-            Porque todos são chamados.<br>
-            Nós sabemos: o caminho é o amor.<br>
-            Nós sabemos: o caminho é o amor.
-          </div>
-          <div class="estrofe">
-            <strong>Um novo sol se levanta,</strong><br>
-            <strong>Pois nasce hoje a civilização do amanhã.</strong><br>
-            <strong>Uma corrente mais forte</strong><br>
-            <strong>Que o ódio e que a morte.</strong><br>
-            <strong>Nós sabemos: o caminho é o amor.</strong>
-          </div>
-          <div class="estrofe">
-            A justiça, novo nome para a paz;<br>
-            O amor leva sempre a perdoar;<br>
-            A verdade, a força que nos dá a liberdade.<br>
-            Nós sabemos: o caminho é o amor.
-          </div>
-          <div class="estrofe">
-            <strong>Um novo sol se levanta,</strong><br>
-            <strong>Pois nasce hoje a civilização do amanhã.</strong><br>
-            <strong>Uma corrente mais forte</strong><br>
-            <strong>Que o ódio e que a morte.</strong><br>
-            <strong>Nós sabemos: o caminho é o amor.</strong>
-          </div>
-          <div class="estrofe">
-            E quem ama irradia com a vida,<br>
-            Sabe ver o amor além da dor.<br>
-            Pois o homem se sente<br>
-            Solidário com o mundo.<br>
-            Nós sabemos: o caminho é o amor.
-          </div>
-          <div class="estrofe">
-            <strong>Um novo sol se levanta,</strong><br>
-            <strong>Pois nasce hoje a civilização do amanhã.</strong><br>
-            <strong>Uma corrente mais forte</strong><br>
-            <strong>Que o ódio e que a morte.</strong><br>
-            <strong>Nós sabemos: o caminho é o amor.</strong>
-          </div>
-          <div class="estrofe">
-            Meu irmão é você que está ao meu lado<br>
-            Todos filhos de Deus que nos criou.<br>
-            Ele veio a esta terra<br>
-            Para unir a humanidade.<br>
-            Nós sabemos: o caminho é o amor.
-          </div>
-          <div class="estrofe">
-            <strong>Um novo sol se levanta,</strong><br>
-            <strong>Pois nasce hoje a civilização do amanhã.</strong><br>
-            <strong>Uma corrente mais forte</strong><br>
-            <strong>Que o ódio e que a morte.</strong><br>
-            <strong>Nós sabemos: o caminho é o amor.</strong>
-          </div>
+          <br />
+Uma terra que não tem mais fronteiras.<br />
+Mãos que unidas no mundo formarão<br />
+Uma corrente mais forte<br />
+Que a guerra e que a morte.<br />
+Nós sabemos, o caminho é o amor.<br />
+<br />
+Uma pátria mais justa e mais fraterna<br />
+Onde juntos construímos a unidade,<br />
+E ninguém é desprezado<br />
+Porque todos são chamados.<br />
+Nós sabemos: o caminho é o amor.<br />
+Nós sabemos: o caminho é o amor.<br />
+<br />
+<strong>Um novo sol se levanta,</strong><br />
+<strong>Pois nasce hoje a civilização do amanhã.</strong><br />
+<strong>Uma corrente mais forte</strong><br />
+<strong>Que o ódio e que a morte.</strong><br />
+<strong>Nós sabemos: o caminho é o amor.</strong><br />
+<br />
+A justiça, novo nome para a paz;<br />
+O amor leva sempre a perdoar;<br />
+A verdade, a força que nos dá a liberdade.<br />
+Nós sabemos: o caminho é o amor.<br />
+<br />
+<strong>Um novo sol se levanta,</strong><br />
+<strong>Pois nasce hoje a civilização do amanhã.</strong><br />
+<strong>Uma corrente mais forte</strong><br />
+<strong>Que o ódio e que a morte.</strong><br />
+<strong>Nós sabemos: o caminho é o amor.</strong><br />
+<br />
+E quem ama irradia com a vida,<br />
+Sabe ver o amor além da dor.<br />
+Pois o homem se sente<br />
+Solidário com o mundo.<br />
+Nós sabemos: o caminho é o amor.<br />
+<br />
+<strong>Um novo sol se levanta,</strong><br />
+<strong>Pois nasce hoje a civilização do amanhã.</strong><br />
+<strong>Uma corrente mais forte</strong><br />
+<strong>Que o ódio e que a morte.</strong><br />
+<strong>Nós sabemos: o caminho é o amor.</strong><br />
+<br />
+Meu irmão é você que está ao meu lado<br />
+Todos filhos de Deus que nos criou.<br />
+Ele veio a esta terra<br />
+Para unir a humanidade.<br />
+Nós sabemos: o caminho é o amor.<br />
+<br />
+<strong>Um novo sol se levanta,</strong><br />
+<strong>Pois nasce hoje a civilização do amanhã.</strong><br />
+<strong>Uma corrente mais forte</strong><br />
+<strong>Que o ódio e que a morte.</strong><br />
+<strong>Nós sabemos: o caminho é o amor.</strong><br />
         </div>
         <a class="home-btn" href="#topo">⌂</a>
       </section>
@@ -1016,59 +959,54 @@
           <span class="autor"></span>
         </div>
         <div class="letra">
-          <div class="estrofe">
-            "Onde iremos parar se continuar assim?"<br>
-            É só o que se ouve todo mundo falar.<br>
-            Existe a violência, escândalo e tanto mal.<br>
-            Onde é que estão os grandes ideais?<br>
-            É certo, o mundo hoje vive um tempo escuro;<br>
-            Exalta-se o erro e a notícia crua e dura;<br>
-            Sucesso e dinheiro se conquistam a qualquer preço.<br>
-            Porém, eu lhes garanto, não existe só esta humanidade.
-          </div>
-          <div class="estrofe">
-            Conheço outra humanidade,<br>
-            Aquela que encontro sempre pelas ruas,<br>
-            Aquela que não grita, aquela que não explora<br>
-            Sua gente pra tirar proveito.<br>
-            Conheço outra humanidade,<br>
-            Aquela que não sabe roubar pra ter,<br>
-            Mas que se contenta em ganhar o pão<br>
-            com o seu suor.
-          </div>
-          <div class="estrofe">
-            <strong>Creio, creio nesta humanidade.</strong><br>
-            <strong>Creio, creio nesta humanidade.</strong><br>
-            <strong>Que vive no silêncio, ainda é humilde,</strong><br>
-            <strong>Ainda se desculpa e se faz criança.</strong><br>
-            <strong>Esta é a humanidade que me dá esperança.</strong>
-          </div>
-          <div class="estrofe">
-            Conheço outra humanidade,<br>
-            Aquela que hoje vai contra corrente,<br>
-            Aquela que quer dar também a sua vida<br>
-            Pra morrer pela própria gente.<br>
-            Conheço outra humanidade,<br>
-            Aquela que não busca seu lugar ao sol,<br>
-            Pois sabe que no mundo, por miséria e fome,<br>
-            Muita gente morre.
-          </div>
-          <div class="estrofe">
-            <strong>Creio, creio nesta humanidade.</strong><br>
-            <strong>Creio, creio nesta humanidade.</strong><br>
-            <strong>Que abate as fronteiras,</strong><br>
-            <div class="duas-vozes alinhadas">
+          <br />
+"Onde iremos parar se continuar assim?"<br />
+É só o que se ouve todo mundo falar.<br />
+Existe a violência, escândalo e tanto mal.<br />
+Onde é que estão os grandes ideais?<br />
+É certo, o mundo hoje vive um tempo escuro;<br />
+Exalta-se o erro e a notícia crua e dura;<br />
+Sucesso e dinheiro se conquistam a qualquer preço.<br />
+Porém, eu lhes garanto, não existe só esta<br />
+humanidade.<br />
+<br />
+Conheço outra humanidade,<br />
+Aquela que encontro sempre pelas ruas,<br />
+Aquela que não grita, aquela que não explora<br />
+Sua gente pra tirar proveito.<br />
+Conheço outra humanidade,<br />
+Aquela que não sabe roubar pra ter,<br />
+Mas que se contenta em ganhar o pão<br />
+com o seu suor.<br />
+<br />
+<strong>Creio, creio nesta humanidade.</strong><br />
+<strong>Creio, creio nesta humanidade.</strong><br />
+<strong>Que vive no silêncio, ainda é humilde,</strong><br />
+<strong>Ainda se desculpa e se faz criança.</strong><br />
+<strong>Esta é a humanidade que me dá esperança.</strong><br />
+<br />
+Conheço outra humanidade,<br />
+Aquela que hoje vai contra corrente,<br />
+Aquela que quer dar também a sua vida<br />
+Pra morrer pela própria gente.<br />
+Conheço outra humanidade,<br />
+Aquela que não busca seu lugar ao sol,<br />
+Pois sabe que no mundo, por miséria e fome,<br />
+Muita gente morre.<br />
+<br />
+<strong>Creio, creio nesta humanidade.</strong><br />
+<strong>Creio, creio nesta humanidade.</strong><br />
+<strong>Que abate as fronteiras,</strong><br />
+<div class="duas-vozes alinhadas">
               <div class="voz-row">
                 <div class="voz"><strong>Que arrisca a própria vida</strong></div>
                 <div class="voz"><strong>(BIS)</strong></div>
               </div>
             </div>
-            <strong>E não usa armas; sabe usar o seu coração.</strong><br>
-            <strong>Esta é a humanidade que crê no amor.</strong>
-          </div>
-          <div class="estrofe">
-            Esta é a humanidade que crê no amor.
-          </div>
+<strong>E não usa armas; sabe usar o seu coração.</strong><br />
+<strong>Esta é a humanidade que crê no amor.</strong><br />
+<br />
+Esta é a humanidade que crê no amor.<br />
         </div>
         <a class="home-btn" href="#topo">⌂</a>
       </section>
@@ -1079,41 +1017,36 @@
           <span class="autor"></span>
         </div>
         <div class="letra">
-          <div class="estrofe">
-            Eu correrei pelos campos<br>
-            Como a água e o vento<br>
-            Que dão vida ao meu ser<br>
-            Acordarei e na aurora voarei<br>
-            Eu beberei as lágrimas de mel<br>
-            Destiladas da vida e do amor<br>
-            Acordarei e meus olhos hão de ver a luz
-          </div>
-          <div class="estrofe">
-            <strong>Tudo há de ter uma nova cor</strong><br>
-            <strong>E o amanhã se incendiará</strong><br>
-            <strong>De novo o mundo há de sorrir</strong><br>
-            <strong>E na verdade cantará</strong>
-          </div>
-          <div class="estrofe">
-            Campos em flor me abraçando<br>
-            Ao sabor da leve brisa<br>
-            Que envolve o coração pisado de espinhos<br>
-            Eu viverei nos braços desta fé<br>
-            Vendo o riso despontar da dor<br>
-            Levantarei para ver a nova luz
-          </div>
-          <div class="estrofe">
-            <strong>Tudo há de ter uma nova cor</strong><br>
-            <strong>E o amanhã se incendiará</strong><br>
-            <strong>De novo o mundo há de sorrir</strong><br>
-            <strong>E na verdade cantará</strong>
-          </div>
-          <div class="estrofe">
-            Eu cantarei como o Sol e como a chuva caindo<br>
-            Minha alma correrá já sem temor<br>
-            Como água pura e límpida<br>
-            Lá, lá, laiá
-          </div>
+          <br />
+Eu correrei pelos campos<br />
+Como a água e o vento<br />
+Que dão vida ao meu ser<br />
+Acordarei e na aurora voarei<br />
+Eu beberei as lágrimas de mel<br />
+Destiladas da vida e do amor<br />
+Acordarei e meus olhos hão de ver a luz<br />
+<br />
+<strong>Tudo há de ter uma nova cor</strong><br />
+<strong>E o amanhã se incendiará</strong><br />
+<strong>De novo o mundo há de sorrir</strong><br />
+<strong>E na verdade cantará</strong><br />
+<br />
+Campos em flor me abraçando<br />
+Ao sabor da leve brisa<br />
+Que envolve o coração pisado de espinhos<br />
+Eu viverei nos braços desta fé<br />
+Vendo o riso despontar da dor<br />
+Levantarei para ver a nova luz<br />
+<br />
+<strong>Tudo há de ter uma nova cor</strong><br />
+<strong>E o amanhã se incendiará</strong><br />
+<strong>De novo o mundo há de sorrir</strong><br />
+<strong>E na verdade cantará</strong><br />
+<br />
+Eu cantarei como o Sol e como a chuva caindo<br />
+Minha alma correrá já sem temor<br />
+Como água pura e límpida<br />
+Lá, lá, laiá<br />
         </div>
         <a class="home-btn" href="#topo">⌂</a>
       </section>
@@ -1124,47 +1057,41 @@
           <span class="autor"></span>
         </div>
         <div class="letra">
-          <div class="estrofe">
-            A sombra vai se abrindo, quando a noite cai<br>
-            E vão surgindo tantas luzes<br>
-            De um dia, que jamais há de se acabar<br>
-            De um dia, que há de começar sempre<br>
-            Porque sabemos que uma nova vida<br>
-            Aqui nascida, ninguém mais cancelará
-          </div>
-          <div class="estrofe">
-            <strong>Se tu vais agora, anoitecerá</strong><br>
-            <strong>Se tu vais embora, senhor, o que será?</strong><br>
-            <strong>Se tu vais agora, anoitecerá</strong><br>
-            <strong>Mas se permaneces, a noite não virá</strong>
-          </div>
-          <div class="estrofe">
-            Como o mar se espraia, infinitamente<br>
-            O vento soprará e abrirá os caminhos escondidos<br>
-            Tantos corações hão de ver uma nova luz clara<br>
-            Como uma chama que, onde passa, queima<br>
-            O teu amor todo mundo invadirá
-          </div>
-          <div class="estrofe">
-            <strong>Se tu vais agora, anoitecerá</strong><br>
-            <strong>Se tu vais embora, senhor, o que será?</strong><br>
-            <strong>Se tu vais agora, anoitecerá</strong><br>
-            <strong>Mas se permaneces, a noite não virá</strong>
-          </div>
-          <div class="estrofe">
-            A humanidade luta, sofre e espera<br>
-            É terra seca e no céu não há nuvens<br>
-            Mas a vida não lhe faltará<br>
-            E a esperança brilhará para sempre<br>
-            Contigo unidos, oh, fonte de água viva<br>
-            Tua presença o deserto acabará
-          </div>
-          <div class="estrofe">
-            <strong>Se tu vais agora, anoitecerá</strong><br>
-            <strong>Se tu vais embora, senhor, o que será?</strong><br>
-            <strong>Se tu vais agora, anoitecerá</strong><br>
-            <strong>Mas se permaneces, a noite não virá</strong>
-          </div>
+          <br />
+A sombra vai se abrindo, quando a noite cai<br />
+E vão surgindo tantas luzes<br />
+De um dia, que jamais há de se acabar<br />
+De um dia, que há de começar sempre<br />
+Porque sabemos que uma nova vida<br />
+Aqui nascida, ninguém mais cancelará<br />
+<br />
+<strong>Se tu vais agora, anoitecerá</strong><br />
+<strong>Se tu vais embora, senhor, o que será?</strong><br />
+<strong>Se tu vais agora, anoitecerá</strong><br />
+<strong>Mas se permaneces, a noite não virá</strong><br />
+<br />
+Como o mar se espraia, infinitamente<br />
+O vento soprará e abrirá os caminhos escondidos<br />
+Tantos corações hão de ver uma nova luz clara<br />
+Como uma chama que, onde passa, queima<br />
+O teu amor todo mundo invadirá<br />
+<br />
+<strong>Se tu vais agora, anoitecerá</strong><br />
+<strong>Se tu vais embora, senhor, o que será?</strong><br />
+<strong>Se tu vais agora, anoitecerá</strong><br />
+<strong>Mas se permaneces, a noite não virá</strong><br />
+<br />
+A humanidade luta, sofre e espera<br />
+É terra seca e no céu não há nuvens<br />
+Mas a vida não lhe faltará<br />
+E a esperança brilhará para sempre<br />
+Contigo unidos, oh, fonte de água viva<br />
+Tua presença o deserto acabará<br />
+<br />
+<strong>Se tu vais agora, anoitecerá</strong><br />
+<strong>Se tu vais embora, senhor, o que será?</strong><br />
+<strong>Se tu vais agora, anoitecerá</strong><br />
+<strong>Mas se permaneces, a noite não virá</strong><br />
         </div>
         <a class="home-btn" href="#topo">⌂</a>
       </section>
@@ -1175,46 +1102,40 @@
           <span class="autor"></span>
         </div>
         <div class="letra">
-          <div class="estrofe">
-            Surge nova aurora, nasce novo dia.<br>
-            Brilha outra luz, canta o coração.
-          </div>
-          <div class="estrofe">
-            <strong>E a estrada que era longa,</strong><br>
-            <strong>até parece breve:</strong><br>
-            <strong>Tu caminhas sempre mais,</strong><br>
-            <strong>Não te cansarás jamais.</strong><br>
-            <strong>Se te lanças na aventura de amar,</strong><br>
-            <strong>Somente amar,</strong><br>
-            <strong>Sempre mais aquela meta alcançarás.</strong>
-          </div>
-          <div class="estrofe">
-            Mesmo, se às vezes escuro se faz,<br>
-            Anda para frente, jamais para trás.
-          </div>
-          <div class="estrofe">
-            <strong>E a estrada que era longa,</strong><br>
-            <strong>até parece breve:</strong><br>
-            <strong>Tu caminhas sempre mais,</strong><br>
-            <strong>Não te cansarás jamais.</strong><br>
-            <strong>Se te lanças na aventura de amar,</strong><br>
-            <strong>Somente amar,</strong><br>
-            <strong>Sempre mais aquela meta alcançarás.</strong>
-          </div>
-          <div class="estrofe">
-            Olha, tu caminhas, mas só não estás.<br>
-            Deus, que escolheste, te acompanhará;
-          </div>
-          <div class="estrofe">
-            <strong>É o amor que te acompanha,</strong><br>
-            <strong>Que vive dentro em ti,</strong><br>
-            <div class="duas-vozes">
+          <br />
+Surge nova aurora, nasce novo dia.<br />
+Brilha outra luz, canta o coração.<br />
+<br />
+<strong>E a estrada que era longa,</strong><br />
+<strong>até parece breve:</strong><br />
+<strong>Tu caminhas sempre mais,</strong><br />
+<strong>Não te cansarás jamais.</strong><br />
+<strong>Se te lanças na aventura de amar,</strong><br />
+<strong>Somente amar,</strong><br />
+<strong>Sempre mais aquela meta alcançarás.</strong><br />
+<br />
+Mesmo, se às vezes escuro se faz,<br />
+Anda para frente, jamais para trás.<br />
+<br />
+<strong>E a estrada que era longa,</strong><br />
+<strong>até parece breve:</strong><br />
+<strong>Tu caminhas sempre mais,</strong><br />
+<strong>Não te cansarás jamais.</strong><br />
+<strong>Se te lanças na aventura de amar,</strong><br />
+<strong>Somente amar,</strong><br />
+<strong>Sempre mais aquela meta alcançarás.</strong><br />
+<br />
+Olha, tu caminhas, mas só não estás.<br />
+Deus, que escolheste, te acompanhará;<br />
+<br />
+<strong>É o amor que te acompanha,</strong><br />
+<strong>Que vive dentro em ti,</strong><br />
+<div class="duas-vozes">
               <div class="voz"><strong>Que a treva ilumina, que a dor tida elimina.</strong></div>
               <div class="voz"><strong>(BIS)</strong></div>
             </div>
-            <strong>Sim, com Ele tu caminhas, e logo então verás,</strong><br>
-            <strong>Sempre mais aquela meta alcançarás.</strong>
-          </div>
+<strong>Sim, com Ele tu caminhas, e logo então verás,</strong><br />
+<strong>Sempre mais aquela meta alcançarás.</strong><br />
         </div>
         <a class="home-btn" href="#topo">⌂</a>
       </section>
@@ -1225,43 +1146,42 @@
           <span class="autor"></span>
         </div>
         <div class="letra">
-          <div class="estrofe">
-            De manhã visto a roupa de passista.<br>
-            Não importa quem me assista,<br>
-            Sou mais um equilibrista<br>
-            <div class="duas-vozes">
+          <br />
+De manhã visto a roupa de passista.<br />
+Não importa quem me assista,<br />
+Sou mais um equilibrista<br />
+<div class="duas-vozes">
               <div class="voz">Do fantástico da vida.</div>
               <div class="voz">(BIS)</div>
             </div>
-            Mas o amor se faz presente,<br>
-            Vou alegre pro batente, ser mais um sobrevivente.
-          </div>
-          <div class="estrofe">
-            Quando saio, me desejo boa sorte,<br>
-            Pois bem sabe, quem padece,<br>
-            <div class="duas-vozes">
+<br />
+Mas o amor se faz presente,<br />
+Vou alegre pro batente, ser mais um sobrevivente.<br />
+<br />
+Quando saio, me desejo boa sorte,<br />
+Pois bem sabe, quem padece,<br />
+<div class="duas-vozes">
               <div class="voz">O valor que o amor contém.</div>
               <div class="voz">(BIS)</div>
             </div>
-            Porém, na virada da moenda,<br>
-            Vou perdendo a paciência,<br>
-            Lá se vai a minha ciência;<br>
-            Eu mais um homem sem cara.
-          </div>
-          <div class="estrofe">
-            Lembro de ser o sal da terra,<br>
-            Sei que lá é que se encerra<br>
-            A função de um sofredor.
-          </div>
-          <div class="estrofe">
-            Quando volto, sou herói desconhecido<br>
-            Com a alegria de ter sido<br>
-            <div class="duas-vozes">
+<br />
+Porém, na virada da moenda,<br />
+Vou perdendo a paciência,<br />
+Lá se vai a minha ciência;<br />
+Eu mais um homem sem cara.<br />
+<br />
+Lembro de ser o sal da terra,<br />
+Sei que lá é que se encerra<br />
+A função de um sofredor.<br />
+<br />
+Quando volto, sou herói desconhecido<br />
+Com a alegria de ter sido<br />
+<div class="duas-vozes">
               <div class="voz">Do amor embaixador.</div>
               <div class="voz">(BIS)</div>
             </div>
-            É de manhã, é de manhã…
-          </div>
+<br />
+É de manhã, é de manhã…<br />
         </div>
         <a class="home-btn" href="#topo">⌂</a>
       </section>
